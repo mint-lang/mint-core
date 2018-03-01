@@ -1,0 +1,7 @@
+{
+  "name": "Core Libraries",
+  "version": "0.0.1",
+  "source-directories": [
+    "source"
+  ]
+}
