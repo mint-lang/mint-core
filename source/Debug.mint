@@ -1,4 +1,4 @@
-module Console {
+module Debug {
   fun log (value : a) : a {
     `
     (() => {
