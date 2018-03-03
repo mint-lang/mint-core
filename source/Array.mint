@@ -1,6 +1,15 @@
 module Array {
-  fun first (array : Array(a)) : a {
-    `array[0]`
+  fun first (array : Array(a)) : Maybe(a) {
+    `
+    (()=> {
+      let first = array[0]
+      if (first) {
+        return new Just(first)
+      } else {
+        return new Nothing()
+      }
+    })
+    `
   }
 
   fun size (array : Array(a)) : Number {
