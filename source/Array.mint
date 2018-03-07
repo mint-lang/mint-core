@@ -8,7 +8,7 @@ module Array {
       } else {
         return new Nothing()
       }
-    })
+    })()
     `
   }
 
