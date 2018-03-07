@@ -3,6 +3,10 @@ module Window {
     `document.title = title`
   }
 
+  fun url : Url {
+    Url.parse(`window.location.href`)
+  }
+
   fun width : Number {
     `window.innerWidth`
   }
