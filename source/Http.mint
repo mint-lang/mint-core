@@ -6,8 +6,8 @@ record Http.Header {
 record Http.Request {
   headers : Array(Http.Header),
   withCredentials : Bool,
+  body : Http.Body,
   method : String,
-  body : String,
   url : String
 }
 
@@ -28,7 +28,7 @@ module Http {
       withCredentials = false,
       method = "GET",
       headers = [],
-      body = "",
+      body = `null`,
       url = ""
     }
   }
@@ -57,8 +57,12 @@ module Http {
     |> url(value)
   }
 
-  fun body (value : String, request : Http.Request) : Http.Request {
-    { request | body = value }
+  fun stringBody (value : String, request : Http.Request) : Http.Request {
+    { request | body = `value` }
+  }
+
+  fun formDataBody (value : FormData, request : Http.Request) : Http.Request {
+    { request | body = `value` }
   }
 
   fun method (value : String, request : Http.Request) : Http.Request {

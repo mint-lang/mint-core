@@ -11,6 +11,22 @@ module Maybe {
     `maybe instanceof Just`
   }
 
+  fun isNothing (maybe : Maybe(a)) : Bool {
+    `maybe instanceof Nothing`
+  }
+
+  fun toResult (error : b, maybe : Maybe(a)) : Result(b, a) {
+    `
+    (() => {
+      if (maybe instanceof Just) {
+        return new Ok(maybe.value)
+      } else {
+        return new Error(b)
+      }
+    })()
+    `
+  }
+
   fun map (func : Function(a, b), maybe : Maybe(a)) : Maybe(b) {
     `
     (() => {
