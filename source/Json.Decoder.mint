@@ -6,11 +6,15 @@ module Json.Decoder {
   fun field (key : String, object : JSObject, decoder : Function(JSObject, Result(Json.Error, a))) : Result(Json.Error, a) {
     `
     (() => {
-      let actual = object[key]
-      if (typeof actual === "undefined") {
-        return new Err({ message: \`No key ${key}\` })
+      if (object == null) {
+        return new Err({ message: \`Null object\`})
+      } else {
+        let actual = object[key]
+        if (typeof actual === "undefined") {
+          return new Err({ message: \`No key ${key}\` })
+        }
+        return decoder(actual)
       }
-      return decoder(actual)
     })()
     `
   }
@@ -70,13 +74,9 @@ module Json.Decoder {
     `
   }
 
-  fun decodeWith (decoder : Function(JSObject, Result(Json.Error, a)), input : JSObject) : Result(Json.Error, a) {
-    decoder(input)
-  }
-
-  fun array (decoder : Function(JSObject, Result(Json.Error, a))) : Function(JSObject, Result(Json.Error, Array(a))) {
+  fun array (decoder : Function(JSObject, Result(Json.Error, a)), input : JSObject) : Result(Json.Error, Array(a)) {
     `
-    ((input) => {
+    (() => {
       if (!Array.isArray(input)) {
         return new Err({ message: "Input is not an array!"})
       }
@@ -94,7 +94,7 @@ module Json.Decoder {
       }
 
       return new Ok(results)
-    })
+    })()
     `
   }
 }
