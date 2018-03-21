@@ -1,6 +1,7 @@
 {
   "name": "mint-core",
   "source-directories": [
-    "source"
+    "source",
+    "test"
   ]
 }

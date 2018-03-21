@@ -1,10 +1,23 @@
 module Array {
   fun first (array : Array(a)) : Maybe(a) {
     `
-    (()=> {
+    (() => {
       let first = array[0]
-      if (first) {
+      if (first !== undefined) {
         return new Just(first)
+      } else {
+        return new Nothing()
+      }
+    })()
+    `
+  }
+
+  fun last (array : Array(a)) : Maybe(a) {
+    `
+    (() => {
+      let last = array[array.length - 1]
+      if (last !== undefined) {
+        return new Just(last)
       } else {
         return new Nothing()
       }
@@ -84,10 +97,6 @@ module Array {
 
   fun slice (from : Number, to : Number, array : Array(a)) : Array(a) {
     `array.slice(from, to)`
-  }
-
-  fun last (array : Array(a)) : a {
-    `array[array.length - 1]`
   }
 
   fun isEmpty (array : Array(a)) : Bool {
