@@ -57,7 +57,7 @@ module Array {
     `
     (() => {
       let item = array.find(func)
-      if (item) {
+      if (item != undefined) {
         return new Just(item)
       } else {
         return new Nothing()
@@ -112,7 +112,7 @@ module Array {
   }
 
   fun range (from : Number, to : Number) : Array(Number) {
-    `Array.from({ length: to - from }).map((v, i) => i + from)`
+    `Array.from({ length: (to + 1) - from }).map((v, i) => i + from)`
   }
 
   fun join (separator : String, array : Array(String)) : String {

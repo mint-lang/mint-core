@@ -127,7 +127,7 @@ suite "Array.mapWithIndex" {
 }
 
 suite "Array.select" {
-  test "it keeps items that match that predicate" {
+  test "keeps items that match that predicate" {
     ([
       1,
       2,
@@ -141,7 +141,7 @@ suite "Array.select" {
 }
 
 suite "Array.reject" {
-  test "it keeps items that match that does not predicateon" {
+  test "keeps items that match that does not predicate" {
     ([
       1,
       2,
@@ -151,5 +151,153 @@ suite "Array.reject" {
     ]
     |> Array.reject(Number.isOdd)
     |> Array.size()) == 2
+  }
+}
+
+suite "Array.find" {
+  test "finds the first item that matches the predicate" {
+    ([
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ]
+    |> Array.find(\number : Number => number == 3)
+    |> Maybe.withDefault(0)) == 3
+  }
+
+  test "finds item if it equals to false" {
+    ([
+      true,
+      false
+    ]
+    |> Array.find(\item : Bool => item == false)
+    |> Maybe.withDefault(true)) == false
+  }
+}
+
+suite "Array.any" {
+  test "returns true if finds any item that matches the predicat" \
+  "e" {
+    [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ]
+    |> Array.any(\number : Number => number == 3)
+  }
+
+  test "returns false if no item matches the predicate" {
+    ([
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ]
+    |> Array.any(\number : Number => number == 9)) == false
+  }
+}
+
+suite "Array.sort" {
+  test "sorts the array based on predicate function" {
+    ([
+      3,
+      2,
+      1
+    ]
+    |> Array.sort(\a : Number, b : Number => a - b)
+    |> Array.map(Number.toString)
+    |> Array.join("")) == "123"
+  }
+}
+
+suite "Array.sortBy" {
+  test "sorts the array based on predicate function" {
+    ([
+      3,
+      2,
+      1
+    ]
+    |> Array.sortBy(\a : Number => a)
+    |> Array.map(Number.toString)
+    |> Array.join("")) == "123"
+  }
+}
+
+suite "Array.slice" {
+  test "returns empty array for empty array" {
+    []
+    |> Array.slice(0, 0)
+    |> Array.isEmpty()
+  }
+
+  test "returns part of the array" {
+    ([
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+    |> Array.slice(1, 3)
+    |> Array.map(Number.toString)
+    |> Array.join("")) == "23"
+  }
+}
+
+suite "Array.isEmpty" {
+  test "returns true for empty array" {
+    Array.isEmpty([])
+  }
+
+  test "returns false for non-empty array" {
+    Array.isEmpty(["a"]) == false
+  }
+}
+
+suite "Array.intersperse" {
+  test "inserts the separator between items" {
+    ([
+      "a",
+      "b",
+      "c",
+      "d"
+    ]
+    |> Array.intersperse("|")
+    |> Array.join("")) == "a|b|c|d"
+  }
+}
+
+suite "Array.contains" {
+  test "returns true if the array contains the exact item" {
+    [
+      "a",
+      "b"
+    ]
+    |> Array.contains("a")
+  }
+
+  test "returns false if the array does not contain the exact it" \
+  "em" {
+    ([
+      "a",
+      "b"
+    ]
+    |> Array.contains("c")) == false
+  }
+}
+
+suite "Array.range" {
+  test "returns an array of numbers for the given range" {
+    (Array.range(0, 10)
+    |> Array.map(Number.toString)
+    |> Array.join("")) == "012345678910"
   }
 }
