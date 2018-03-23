@@ -113,4 +113,8 @@ module Array {
   fun do (array : Array(Void)) : Void {
     `null`
   }
+
+  fun delete (what : a, array : Array(a)) : Array(a) {
+    `array.filter((item) => item !== what)`
+  }
 }
