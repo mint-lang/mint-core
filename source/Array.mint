@@ -117,4 +117,8 @@ module Array {
   fun delete (what : a, array : Array(a)) : Array(a) {
     `array.filter((item) => item !== what)`
   }
+
+  fun max (array : Array(Number)) : Number {
+    `Math.max(...array)`
+  }
 }
