@@ -48,6 +48,24 @@ module Storage.Local {
     `
   }
 
+  fun remove (key : String) : Result(Storage.Error, Void) {
+    `
+    (() => {
+      try {
+        localStorage.removeItem(key)
+        return new Ok(null)
+      } catch (error) {
+        switch(error.name) {
+          case 'SecurityError':
+            return new Err({ type: 'SECURITY_ERROR' })
+          default:
+            return new Err({ type: 'UNKOWN_ERROR' })
+        }
+      }
+    })()
+    `
+  }
+
   fun clear : Result(Storage.Error, Void) {
     `
     (() => {
@@ -71,6 +89,23 @@ module Storage.Local {
     (() => {
       try {
         return new Ok(localStorage.length)
+      } catch (error) {
+        switch(error.name) {
+          case 'SecurityError':
+            return new Err({ type: 'SECURITY_ERROR' })
+          default:
+            return new Err({ type: 'UNKOWN_ERROR' })
+        }
+      }
+    })()
+    `
+  }
+
+  fun keys : Result(Storage.Error, Array(String)) {
+    `
+    (() => {
+      try {
+        return new Ok(Object.keys(localStorage))
       } catch (error) {
         switch(error.name) {
           case 'SecurityError':

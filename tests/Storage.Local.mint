@@ -77,3 +77,57 @@ suite "Storage.Local.clear" {
     }
   }
 }
+
+suite "Storage.Local.remove" {
+  test "it removes the item with the specified key" {
+    try {
+      Storage.Local.set("test", "test")
+
+      initialSize =
+        Storage.Local.size()
+
+      Storage.Local.remove("test")
+
+      afterSize =
+        Storage.Local.size()
+
+      (initialSize == 1 && afterSize == 0)
+    } catch Storage.Error => error {
+      false
+    }
+  }
+}
+
+suite "Storage.Local.size" {
+  test "it returns the number of elements in the storage" {
+    try {
+      Storage.Local.set("a", "0")
+      Storage.Local.set("b", "1")
+      Storage.Local.set("c", "2")
+
+      size =
+        Storage.Local.size()
+
+      (size == 3)
+    } catch Storage.Error => error {
+      false
+    }
+  }
+}
+
+suite "Storage.Local.keys" {
+  test "it returns the keys of elements in the storage" {
+    try {
+      Storage.Local.set("c", "2")
+      Storage.Local.set("a", "0")
+      Storage.Local.set("b", "1")
+
+      keys =
+        Storage.Local.keys()
+
+      (Array.join("", keys) == "abc")
+    } catch Storage.Error => error {
+      false
+    }
+  }
+}
