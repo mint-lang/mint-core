@@ -22,4 +22,8 @@ module String {
   fun capitalize (string : String) : String {
     `string.replace(/\b[a-z]/g, char => char.toUpperCase())`
   }
+
+  fun repeat (string : String, count : Number) : String {
+    `string.repeat(count)`
+  }
 }
