@@ -7,6 +7,10 @@ module Window {
     Url.parse(`window.location.href`)
   }
 
+  fun setScrollTop (position : Number) : Void {
+    `window.scrollTo(position, document.body.scrollLeft)`
+  }
+
   fun width : Number {
     `window.innerWidth`
   }

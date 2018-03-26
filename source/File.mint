@@ -5,6 +5,10 @@ record File {
 }
 
 module File {
+  fun fromString (contents : String, name : String, type : String) : File {
+    `new File([contents], name, { type: type })`
+  }
+
   fun selectMultiple (accept : String) : Promise(Never, Array(File)) {
     `
     (() => {

@@ -12,6 +12,11 @@ module Array {
     `
   }
 
+  fun firstWithDefault (a : a, array : Array(a)) : a {
+    first(array)
+    |> Maybe.withDefault(a)
+  }
+
   fun last (array : Array(a)) : Maybe(a) {
     `
     (() => {
