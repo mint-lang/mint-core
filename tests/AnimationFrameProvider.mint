@@ -16,7 +16,7 @@ component Test.AnimationFrame {
 
 suite "AnimationFrameProvider" {
   test "calls frames on an animation frame" {
-    with Spec.Html {
+    with Test.Html {
       <Test.AnimationFrame/>
       |> start()
       |> assertText("div", "1")

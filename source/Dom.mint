@@ -1,53 +1,71 @@
-record DOM.Element {
-  value : String
-}
-
-record DOM.Dimensions {
-  height : Number,
-  width : Number,
-  bottom : Number,
-  right : Number,
-  left : Number,
-  top : Number,
-  x : Number,
-  y : Number
-}
-
-module DOM {
-  fun equals (a : DOM.Dimensions, b : DOM.Dimensions) : Bool {
-    a.bottom == b.bottom && a.right == b.right && a.left == b.left && a.top == b.top
+module Dom {
+  fun createElement (tag : String) : Dom.Element {
+    `document.createElement(tag)`
   }
 
-  fun dummyElement : DOM.Element {
-    `document.createElement('div')`
+  fun getElementById (id : String) : Maybe(Dom.Element) {
+    `
+    (() => {
+      let element = document.getElementById(id)
+
+      if (element) {
+        return new Just(element)
+      } else {
+        return new Nothing()
+      }
+    })()
+    `
   }
 
-  fun getElementById (id : String) : DOM.Element {
-    `document.getElementById(id)`
+  fun getElementBySelector (selector : String) : Maybe(Dom.Element) {
+    `
+    (() => {
+      try {
+        let element = document.querySelector(selector)
+
+        if (element) {
+          return new Just(element)
+        } else {
+          return new Nothing()
+        }
+      } catch (error) {
+        return new Nothing()
+      }
+    })()
+    `
   }
 
-  fun setStyle (prop : String, value : String, dom : DOM.Element) : Void {
-    `dom.style[prop] = value`
-  }
-
-  fun emptyDimensions : DOM.Dimensions {
-    {
-      bottom = 0,
-      height = 0,
-      width = 0,
-      right = 0,
-      left = 0,
-      top = 0,
-      x = 0,
-      y = 0
-    }
-  }
-
-  fun getDimensions (dom : DOM.Element) : DOM.Dimensions {
+  fun getDimensions (dom : Dom.Element) : Dom.Dimensions {
     `dom.getBoundingClientRect()`
   }
 
-  fun matches (selector : String, dom : DOM.Element) : Bool {
-    `dom.matches(selector)`
+  fun getValue (dom : Dom.Element) : String {
+    `
+    (() => {
+      let value = dom.value
+
+      if (typeof value === "string") {
+        return value
+      } else {
+        return ""
+      }
+    })()
+    `
+  }
+
+  fun setValue (value : String, dom : Dom.Element) : Dom.Element {
+    `(dom.value = value) && dom`
+  }
+
+  fun matches (selector : String, dom : Dom.Element) : Bool {
+    `
+    (() => {
+      try {
+        return dom.matches(selector)
+      } catch (error) {
+        return false
+      }
+    })()
+    `
   }
 }

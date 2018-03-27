@@ -1,5 +1,5 @@
 record Html.Event {
-  target : DOM.Element,
+  target : Dom.Element,
   button : Number,
   ctrlKey : Bool,
   pageY : Number,
