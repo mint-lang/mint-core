@@ -24,6 +24,17 @@ suite "Array.first" {
   }
 }
 
+suite "Array.firstWithDefault" {
+  test "returns the first item if exists" {
+    (["a"]
+    |> Array.firstWithDefault("")) == "a"
+  }
+
+  test "returns the default value if the item does not exists" {
+    (Array.firstWithDefault("", [])) == ""
+  }
+}
+
 suite "Array.last" {
   test "returns nothing for empty array" {
     []
@@ -284,8 +295,7 @@ suite "Array.contains" {
     |> Array.contains("a")
   }
 
-  test "returns false if the array does not contain the exact it" \
-  "em" {
+  test "returns false if the it does not contain the exact item" {
     ([
       "a",
       "b"
@@ -299,5 +309,16 @@ suite "Array.range" {
     (Array.range(0, 10)
     |> Array.map(Number.toString)
     |> Array.join("")) == "012345678910"
+  }
+}
+
+suite "Array.join" {
+  test "joins an array of string with the given separator" {
+    ([
+      "a",
+      "b",
+      "c"
+    ]
+    |> Array.join(",")) == "a,b,c"
   }
 }
