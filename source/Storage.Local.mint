@@ -105,7 +105,7 @@ module Storage.Local {
     `
     (() => {
       try {
-        return new Ok(Object.keys(localStorage))
+        return new Ok(Object.keys(localStorage).sort())
       } catch (error) {
         switch(error.name) {
           case 'SecurityError':
