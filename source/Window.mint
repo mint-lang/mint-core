@@ -1,4 +1,8 @@
 module Window {
+  fun title : String {
+    `document.title`
+  }
+
   fun setTitle (title : String) : Void {
     `document.title = title`
   }
