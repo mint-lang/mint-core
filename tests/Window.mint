@@ -36,12 +36,12 @@ suite "Window.url" {
 
 suite "Window.width" {
   test "returns the windows width" {
-    Window.width() == 1920
+    Window.width() == `window.innerWidth`
   }
 }
 
 suite "Window.height" {
   test "returns the windows height" {
-    Window.height() == 1080
+    Window.height() == `window.innerHeight`
   }
 }
