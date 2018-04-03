@@ -12,6 +12,12 @@ suite "Maybe.just" {
   }
 }
 
+suite "Comparison" {
+  test "a" {
+    Maybe.just("a") == Maybe.just("a")
+  }
+}
+
 suite "Maybe.isJust" {
   test "returns true for a just" {
     Maybe.just("")
