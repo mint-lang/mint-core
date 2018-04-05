@@ -1,3 +1,19 @@
+suite "Array equality" {
+  test "simple values" {
+    [
+      "a",
+      "b"
+    ] == [
+      "a",
+      "b"
+    ]
+  }
+
+  test "different values" {
+    [Maybe.just("b")] != [Maybe.just("a")]
+  }
+}
+
 suite "Array.first" {
   test "returns nothing for empty array" {
     []
@@ -26,7 +42,11 @@ suite "Array.first" {
 
 suite "Array.firstWithDefault" {
   test "returns the first item if exists" {
-    (["a"]
+    ([
+      "a",
+      "b",
+      "c"
+    ]
     |> Array.firstWithDefault("")) == "a"
   }
 
@@ -58,6 +78,21 @@ suite "Array.last" {
     ]
     |> Array.last()
     |> Maybe.withDefault("")) == "b"
+  }
+}
+
+suite "Array.lastWithDefault" {
+  test "returns the first item if exists" {
+    ([
+      "a",
+      "b",
+      "c"
+    ]
+    |> Array.lastWithDefault("")) == "c"
+  }
+
+  test "returns the default value if the item does not exists" {
+    (Array.lastWithDefault("", [])) == ""
   }
 }
 

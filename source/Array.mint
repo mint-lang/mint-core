@@ -12,9 +12,9 @@ module Array {
     `
   }
 
-  fun firstWithDefault (a : a, array : Array(a)) : a {
+  fun firstWithDefault (item : a, array : Array(a)) : a {
     first(array)
-    |> Maybe.withDefault(a)
+    |> Maybe.withDefault(item)
   }
 
   fun last (array : Array(a)) : Maybe(a) {
@@ -28,6 +28,11 @@ module Array {
       }
     })()
     `
+  }
+
+  fun lastWithDefault (item : a, array : Array(a)) : a {
+    last(array)
+    |> Maybe.withDefault(item)
   }
 
   fun size (array : Array(a)) : Number {
