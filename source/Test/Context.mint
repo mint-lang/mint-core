@@ -1,6 +1,6 @@
 module Test.Context {
   fun of (a : a) : Test.Context(a) {
-    `new SpecContext(a)`
+    `new TestContext(a)`
   }
 
   fun then (proc : Function(a, Promise(b, c)), context : Test.Context(a)) : Test.Context(c) {

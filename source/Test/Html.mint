@@ -5,7 +5,7 @@ module Test.Html {
       let root = document.createElement('div')
       document.body.appendChild(root)
       ReactDOM.render(node, root)
-      return new SpecContext(root, () => {
+      return new TestContext(root, () => {
         ReactDOM.unmountComponentAtNode(root)
         document.body.removeChild(root)
       })
