@@ -1,4 +1,8 @@
 module Window {
+  fun navigate (url : String) : Void {
+    `_navigate(url)`
+  }
+
   fun title : String {
     `document.title`
   }
@@ -8,11 +12,11 @@ module Window {
   }
 
   fun url : Url {
-    Url.parse(`window.location.href`)
+    Url.parse(href())
   }
 
-  fun setScrollTop (position : Number) : Void {
-    `window.scrollTo(position, document.body.scrollLeft)`
+  fun href : String {
+    `window.location.href`
   }
 
   fun width : Number {
@@ -21,5 +25,9 @@ module Window {
 
   fun height : Number {
     `window.innerHeight`
+  }
+
+  fun setScrollTop (position : Number) : Void {
+    `window.scrollTo(position, document.body.scrollLeft)`
   }
 }

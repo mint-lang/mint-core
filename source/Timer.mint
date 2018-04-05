@@ -1,16 +1,20 @@
 module Timer {
-  fun timeout (duration : Number) : Promise(Void, Void) {
+  fun timeout (subject : a, duration : Number) : Promise(Never, a) {
     `
     new Promise((resolve) => {
-    	setTimeout(resolve, duration)
+    	setTimeout(() => {
+        resolve(subject)
+      }, duration)
     })
     `
   }
 
-  fun waitForNextFrame : Promise(Void, Void) {
+  fun nextFrame (subject : a) : Promise(Never, a) {
     `
     new Promise((resolve) => {
-    	requestAnimationFrame(resolve)
+    	requestAnimationFrame(() => {
+        resolve(subject)
+      })
     })
     `
   }

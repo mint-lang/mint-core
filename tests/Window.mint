@@ -34,6 +34,12 @@ suite "Window.url" {
   }
 }
 
+suite "Window.href" {
+  test "returns the current url as string" {
+    Window.href() == "http://localhost:3000/"
+  }
+}
+
 suite "Window.width" {
   test "returns the windows width" {
     Window.width() == `window.innerWidth`

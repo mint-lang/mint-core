@@ -14,7 +14,7 @@ module Test.Context {
   fun assertEqual (a : a, context : Test.Context(a)) : Test.Context(a) {
     `
     context.step((subject)=> {
-      let result = a === subject
+      let result = _compare(a, subject)
 
       if (result) {
         return subject
