@@ -36,7 +36,22 @@ module Dom {
   }
 
   fun getDimensions (dom : Dom.Element) : Dom.Dimensions {
-    `dom.getBoundingClientRect()`
+    `
+    (() => {
+      const rect = dom.getBoundingClientRect()
+
+      return new Record({
+        bottom: rect.bottom,
+        height: rect.height,
+        width: rect.width,
+        right: rect.right,
+        left: rect.left,
+        top: rect.top,
+        x: rect.x,
+        y: rect.y
+      })
+    })()
+    `
   }
 
   fun getValue (dom : Dom.Element) : String {

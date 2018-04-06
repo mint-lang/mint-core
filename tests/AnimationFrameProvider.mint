@@ -19,9 +19,9 @@ suite "AnimationFrameProvider" {
     with Test.Html {
       <Test.AnimationFrame/>
       |> start()
-      |> assertText("div", "1")
-      |> assertText("div", "2")
-      |> assertText("div", "3")
+      |> assertTextOf("div", "1")
+      |> assertTextOf("div", "2")
+      |> assertTextOf("div", "3")
     }
   }
 }

@@ -21,7 +21,7 @@ suite "Storage.Local.set" {
 
   test "it returns error if over the qouta" {
     try {
-      Storage.Local.set("test", String.repeat("test", 10000000))
+      Storage.Local.set("test", String.repeat(10000000, "test"))
 
       false
     } catch Storage.Error => error {
@@ -125,7 +125,7 @@ suite "Storage.Local.keys" {
       keys =
         Storage.Local.keys()
 
-      (Array.join("", keys) == "abc")
+      (String.join("", keys) == "abc")
     } catch Storage.Error => error {
       false
     }

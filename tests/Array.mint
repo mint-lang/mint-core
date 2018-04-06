@@ -260,7 +260,7 @@ suite "Array.sort" {
     ]
     |> Array.sort(\a : Number, b : Number => a - b)
     |> Array.map(Number.toString)
-    |> Array.join("")) == "123"
+    |> String.join("")) == "123"
   }
 }
 
@@ -273,7 +273,7 @@ suite "Array.sortBy" {
     ]
     |> Array.sortBy(\a : Number => a)
     |> Array.map(Number.toString)
-    |> Array.join("")) == "123"
+    |> String.join("")) == "123"
   }
 }
 
@@ -294,7 +294,7 @@ suite "Array.slice" {
     ]
     |> Array.slice(1, 3)
     |> Array.map(Number.toString)
-    |> Array.join("")) == "23"
+    |> String.join("")) == "23"
   }
 }
 
@@ -317,7 +317,7 @@ suite "Array.intersperse" {
       "d"
     ]
     |> Array.intersperse("|")
-    |> Array.join("")) == "a|b|c|d"
+    |> String.join("")) == "a|b|c|d"
   }
 }
 
@@ -343,17 +343,6 @@ suite "Array.range" {
   test "returns an array of numbers for the given range" {
     (Array.range(0, 10)
     |> Array.map(Number.toString)
-    |> Array.join("")) == "012345678910"
-  }
-}
-
-suite "Array.join" {
-  test "joins an array of string with the given separator" {
-    ([
-      "a",
-      "b",
-      "c"
-    ]
-    |> Array.join(",")) == "a,b,c"
+    |> String.join("")) == "012345678910"
   }
 }

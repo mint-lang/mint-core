@@ -1,3 +1,13 @@
+suite "Window.navigate" {
+  test "it navigates to the given url with push state" {
+    try {
+      Window.navigate("/blah")
+
+      Window.href() == "http://localhost:3000/blah"
+    }
+  }
+}
+
 suite "Window.title" {
   test "returns the current title" {
     Window.title() == ""

@@ -125,10 +125,6 @@ module Array {
     `Array.from({ length: (to + 1) - from }).map((v, i) => i + from)`
   }
 
-  fun join (separator : String, array : Array(String)) : String {
-    `array.join(separator)`
-  }
-
   fun do (array : Array(Void)) : Void {
     `null`
   }

@@ -10,10 +10,6 @@ record Dom.Dimensions {
 }
 
 module Dom.Dimensions {
-  fun equals (a : Dom.Dimensions, b : Dom.Dimensions) : Bool {
-    a.bottom == b.bottom && a.right == b.right && a.left == b.left && a.top == b.top && a.x == b.x && a.y == b.y
-  }
-
   fun empty : Dom.Dimensions {
     {
       bottom = 0,

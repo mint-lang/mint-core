@@ -58,7 +58,7 @@ suite "Dom.getDimensions" {
         Dom.createElement("div")
         |> Dom.getDimensions()
 
-      Dom.Dimensions.equals(Dom.Dimensions.empty(), dimensions)
+      Dom.Dimensions.empty() == dimensions
     }
   }
 

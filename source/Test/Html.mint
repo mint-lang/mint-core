@@ -33,7 +33,7 @@ module Test.Html {
     `
   }
 
-  fun assertText (selector : String, value : String, context : Test.Context(Dom.Element)) : Test.Context(Dom.Element) {
+  fun assertTextOf (selector : String, value : String, context : Test.Context(Dom.Element)) : Test.Context(Dom.Element) {
     `
     context.step((element) => {
       let text = element.querySelector(selector).textContent
@@ -47,7 +47,7 @@ module Test.Html {
     `
   }
 
-  fun assertElement (selector : String, context : Test.Context(Dom.Element)) : Test.Context(Dom.Element) {
+  fun assertElementExists (selector : String, context : Test.Context(Dom.Element)) : Test.Context(Dom.Element) {
     `
     context.step((element) => {
       let subject = element.querySelector(selector)
