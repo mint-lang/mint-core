@@ -1,13 +1,9 @@
-record Storage.Error {
-  type : String
-}
-
-module Storage.Local {
-  fun set (key : String, value : String) : Result(Storage.Error, Void) {
+module Storage.Common {
+  fun set (storage : Storage, key : String, value : String) : Result(Storage.Error, Void) {
     `
     (() => {
       try {
-        localStorage.setItem(key, value)
+        storage.setItem(key, value)
         return new Ok(null)
       } catch (error) {
         switch(error.name) {
@@ -25,11 +21,11 @@ module Storage.Local {
     `
   }
 
-  fun get (key : String) : Result(Storage.Error, Maybe(String)) {
+  fun get (storage : Storage, key : String) : Result(Storage.Error, Maybe(String)) {
     `
     (() => {
       try {
-        let value = localStorage.getItem(key)
+        let value = storage.getItem(key)
 
         if (typeof value === "string") {
           return new Ok(new Just(value))
@@ -48,11 +44,11 @@ module Storage.Local {
     `
   }
 
-  fun remove (key : String) : Result(Storage.Error, Void) {
+  fun remove (storage : Storage, key : String) : Result(Storage.Error, Void) {
     `
     (() => {
       try {
-        localStorage.removeItem(key)
+        storage.removeItem(key)
         return new Ok(null)
       } catch (error) {
         switch(error.name) {
@@ -66,11 +62,11 @@ module Storage.Local {
     `
   }
 
-  fun clear : Result(Storage.Error, Void) {
+  fun clear (storage : Storage) : Result(Storage.Error, Void) {
     `
     (() => {
       try {
-        localStorage.clear()
+        storage.clear()
         return new Ok(null)
       } catch (error) {
         switch(error.name) {
@@ -84,11 +80,11 @@ module Storage.Local {
     `
   }
 
-  fun size : Result(Storage.Error, Number) {
+  fun size (storage : Storage) : Result(Storage.Error, Number) {
     `
     (() => {
       try {
-        return new Ok(localStorage.length)
+        return new Ok(storage.length)
       } catch (error) {
         switch(error.name) {
           case 'SecurityError':
@@ -101,11 +97,11 @@ module Storage.Local {
     `
   }
 
-  fun keys : Result(Storage.Error, Array(String)) {
+  fun keys (storage : Storage) : Result(Storage.Error, Array(String)) {
     `
     (() => {
       try {
-        return new Ok(Object.keys(localStorage).sort())
+        return new Ok(Object.keys(storage).sort())
       } catch (error) {
         switch(error.name) {
           case 'SecurityError':

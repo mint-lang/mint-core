@@ -14,7 +14,6 @@ component TestWindowScrollProvider {
 
   fun render : Html {
     <div::base>
-      <{ `console.log(this.state)` }>
       <{ Number.toString(state.position) }>
     </div>
   }
