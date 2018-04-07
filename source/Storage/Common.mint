@@ -1,3 +1,7 @@
+record Storage.Error {
+  type : String
+}
+
 module Storage.Common {
   fun set (storage : Storage, key : String, value : String) : Result(Storage.Error, Void) {
     `
