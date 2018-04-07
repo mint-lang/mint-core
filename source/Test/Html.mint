@@ -36,7 +36,13 @@ module Test.Html {
   fun assertTextOf (selector : String, value : String, context : Test.Context(Dom.Element)) : Test.Context(Dom.Element) {
     `
     context.step((element) => {
-      let text = element.querySelector(selector).textContent
+      let text = "";
+
+      try {
+        text = element.querySelector(selector).textContent
+      } catch (error) {
+        throw \`Could not find element with selector: ${selector}\`
+      }
 
       if (text == value) {
         return element

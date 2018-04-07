@@ -1,5 +1,5 @@
 module Timer {
-  fun timeout (subject : a, duration : Number) : Promise(Never, a) {
+  fun timeout (duration : Number, subject : a) : Promise(Never, a) {
     `
     new Promise((resolve) => {
     	setTimeout(() => {

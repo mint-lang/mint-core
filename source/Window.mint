@@ -27,7 +27,27 @@ module Window {
     `window.innerHeight`
   }
 
+  fun scrollHeight : Number {
+    `document.body.scrollHeight`
+  }
+
+  fun scrollWidth : Number {
+    `document.body.scrollWidth`
+  }
+
+  fun scrollLeft : Number {
+    `document.body.scrollLeft`
+  }
+
+  fun scrollTop : Number {
+    `document.body.scrollTop`
+  }
+
   fun setScrollTop (position : Number) : Void {
-    `window.scrollTo(position, document.body.scrollLeft)`
+    `document.body.scrollTop = position`
+  }
+
+  fun setScrollLeft (position : Number) : Void {
+    `document.body.scrollLeft = position`
   }
 }
