@@ -15,7 +15,7 @@ suite "Storage.Session.set" {
 
       (value == "test")
     } catch Storage.Error => error {
-      error.type == "QUOTA_EXCEEDED"
+      error == Storage.Error::QuotaExceeded
     }
   }
 

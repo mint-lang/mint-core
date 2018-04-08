@@ -1,5 +1,7 @@
-record Storage.Error {
-  type : String
+enum Storage.Error {
+  SecurityError,
+  QuotaExceeded,
+  Unkown
 }
 
 module Storage.Common {
@@ -12,13 +14,13 @@ module Storage.Common {
       } catch (error) {
         switch(error.name) {
           case 'SecurityError':
-            return new Err({ type: 'SECURITY_ERROR' })
+            return new Err($Storage_Error_SecurityError)
           case 'QUOTA_EXCEEDED_ERR':
-            return new Err({ type: 'QUOTA_EXCEEDED' })
+            return new Err($Storage_Error_QuotaExceeded)
           case 'QuotaExceededError':
-            return new Err({ type: 'QUOTA_EXCEEDED' })
+            return new Err($Storage_Error_QuotaExceeded)
           default:
-            return new Err({ type: 'UNKOWN_ERROR' })
+            return new Err($Storage_Error_Unkown)
         }
       }
     })()
@@ -39,9 +41,9 @@ module Storage.Common {
       } catch (error) {
         switch(error.name) {
           case 'SecurityError':
-            return new Err({ type: 'SECURITY_ERROR' })
+            return new Err($Storage_Error_SecurityError)
           default:
-            return new Err({ type: 'UNKOWN_ERROR' })
+            return new Err($Storage_Error_Unkown)
         }
       }
     })()
@@ -57,9 +59,9 @@ module Storage.Common {
       } catch (error) {
         switch(error.name) {
           case 'SecurityError':
-            return new Err({ type: 'SECURITY_ERROR' })
+            return new Err($Storage_Error_SecurityError)
           default:
-            return new Err({ type: 'UNKOWN_ERROR' })
+            return new Err($Storage_Error_Unkown)
         }
       }
     })()
@@ -75,9 +77,9 @@ module Storage.Common {
       } catch (error) {
         switch(error.name) {
           case 'SecurityError':
-            return new Err({ type: 'SECURITY_ERROR' })
+            return new Err($Storage_Error_SecurityError)
           default:
-            return new Err({ type: 'UNKOWN_ERROR' })
+            return new Err($Storage_Error_Unkown)
         }
       }
     })()
@@ -92,9 +94,9 @@ module Storage.Common {
       } catch (error) {
         switch(error.name) {
           case 'SecurityError':
-            return new Err({ type: 'SECURITY_ERROR' })
+            return new Err($Storage_Error_SecurityError)
           default:
-            return new Err({ type: 'UNKOWN_ERROR' })
+            return new Err($Storage_Error_Unkown)
         }
       }
     })()
@@ -109,9 +111,9 @@ module Storage.Common {
       } catch (error) {
         switch(error.name) {
           case 'SecurityError':
-            return new Err({ type: 'SECURITY_ERROR' })
+            return new Err($Storage_Error_SecurityError)
           default:
-            return new Err({ type: 'UNKOWN_ERROR' })
+            return new Err($Storage_Error_Unkown)
         }
       }
     })()

@@ -15,7 +15,7 @@ suite "Storage.Local.set" {
 
       (value == "test")
     } catch Storage.Error => error {
-      error.type == "QUOTA_EXCEEDED"
+      false
     }
   }
 
@@ -25,7 +25,7 @@ suite "Storage.Local.set" {
 
       false
     } catch Storage.Error => error {
-      true
+      error == Storage.Error::QuotaExceeded
     }
   }
 }
