@@ -1,9 +1,17 @@
 module Json {
-  fun parse (input : String) : JSObject {
-    `JSON.parse(input)`
+  fun parse (input : String) : Maybe(Object) {
+    `
+    (() => {
+     	try {
+     		return new Just(JSON.parse(input))
+     	} catch (error) {
+     		return new Nothing()
+    	}
+    })()
+    `
   }
 
-  fun stringify (input : JSObject) : String {
+  fun stringify (input : Object) : String {
     `JSON.stringify(input)`
   }
 }

@@ -1,15 +1,15 @@
 record Test.Provider.AnimationFrame {
-  counter : Number
+  frames : Number
 }
 
 component Test.Provider.AnimationFrame {
-  state : Test.Provider.AnimationFrame { counter = 0 }
+  state : Test.Provider.AnimationFrame { frames = 0 }
 
-  use Provider.AnimationFrame { frames = \ => next { state | counter = state.counter + 1 } }
+  use Provider.AnimationFrame { frames = \ => next { state | frames = state.frames + 1 } }
 
   fun render : Html {
     <div>
-      <{ Number.toString(state.counter) }>
+      <{ Number.toString(state.frames) }>
     </div>
   }
 }
