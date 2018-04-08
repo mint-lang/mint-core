@@ -1,11 +1,11 @@
-record TestWindowScrollProvider.State {
+record Test.Provider.Scroll {
   position : Number
 }
 
-component TestWindowScrollProvider {
-  use WindowScrollProvider { scrolls = \ => next { state | position = Window.scrollTop() } }
+component Test.Provider.Scroll {
+  use Provider.Scroll { scrolls = \event : Html.Event => next { state | position = Window.scrollTop() } }
 
-  state : TestWindowScrollProvider.State { position = 0 }
+  state : Test.Provider.Scroll { position = 0 }
 
   style base {
     height: 3000px;
@@ -19,11 +19,11 @@ component TestWindowScrollProvider {
   }
 }
 
-suite "WindowScrollProvider.scrolls" {
+suite "Provider.Scroll.scrolls" {
   test "it notifies subscribers about scroll events" {
     with Test.Html {
       with Test.Window {
-        <TestWindowScrollProvider/>
+        <Test.Provider.Scroll/>
         |> start()
         |> assertTextOf("div", "0")
         |> setScrollTop(100)

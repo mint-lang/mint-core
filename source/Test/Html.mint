@@ -33,6 +33,28 @@ module Test.Html {
     `
   }
 
+  fun triggerMouseMove (selector : String, context : Test.Context(Dom.Element)) : Test.Context(Dom.Element) {
+    `
+    context.step((element) => {
+      let event = document.createEvent ('MouseEvents')
+      event.initEvent ("mousemove", true, true)
+      element.querySelector(selector).dispatchEvent(event)
+      return element
+    })
+    `
+  }
+
+  fun triggerMouseUp (selector : String, context : Test.Context(Dom.Element)) : Test.Context(Dom.Element) {
+    `
+    context.step((element) => {
+      let event = document.createEvent ('MouseEvents')
+      event.initEvent ("mouseup", true, true)
+      element.querySelector(selector).dispatchEvent(event)
+      return element
+    })
+    `
+  }
+
   fun assertTextOf (selector : String, value : String, context : Test.Context(Dom.Element)) : Test.Context(Dom.Element) {
     `
     context.step((element) => {

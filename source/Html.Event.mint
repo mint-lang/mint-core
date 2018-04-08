@@ -1,9 +1,13 @@
 record Html.Event {
+  bubbles : Boolean,
+  cancelable : Boolean,
+  currentTarget : Dom.Element,
+  defaultPrevented : Boolean,
+  eventPhase : Number,
+  isTrusted : Boolean,
   target : Dom.Element,
-  button : Number,
-  ctrlKey : Bool,
-  pageY : Number,
-  pageX : Number
+  timeStamp : Number,
+  type : String
 }
 
 module Html.Event {
@@ -11,7 +15,59 @@ module Html.Event {
     `event.stopPropagation()`
   }
 
+  fun isPropagationStopped (event : Html.Event) : Bool {
+    `event.isPropagationStopped()`
+  }
+
   fun preventDefault (event : Html.Event) : Void {
     `event.preventDefault()`
+  }
+
+  fun data (event : Html.Event) : String {
+    `
+    (() => {
+      if (typeof event.data === "string") {
+        return event.data
+      } else {
+        return ""
+      }
+    })
+    `
+  }
+
+  fun altKey (event : Html.Event) : Bool {
+    `
+    (() => {
+      if (typeof event.altKey === "boolean") {
+        return event.altKey
+      } else {
+        return false
+      }
+    })
+    `
+  }
+
+  fun pageX (event : Html.Event) : Number {
+    `
+    (() => {
+      if (typeof event.pageX === "number") {
+        return event.pageX
+      } else {
+        return -1
+      }
+    })
+    `
+  }
+
+  fun pageY (event : Html.Event) : Number {
+    `
+    (() => {
+      if (typeof event.pageX === "number") {
+        return event.pageX
+      } else {
+        return -1
+      }
+    })
+    `
   }
 }

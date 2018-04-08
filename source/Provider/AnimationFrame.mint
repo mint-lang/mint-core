@@ -1,12 +1,12 @@
-record AnimationFrameProvider.Subscription {
+record Provider.AnimationFrame.Subscription {
   frames : Function(Void)
 }
 
-provider AnimationFrameProvider : AnimationFrameProvider.Subscription {
+provider Provider.AnimationFrame : Provider.AnimationFrame.Subscription {
   fun update : Void {
     subscriptions
     |> Array.map(
-      \item : AnimationFrameProvider.Subscription => item.frames)
+      \item : Provider.AnimationFrame.Subscription => item.frames)
     |> Array.map(\func : Function(Void) => func())
     |> Array.do()
   }

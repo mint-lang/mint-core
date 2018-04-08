@@ -1,5 +1,5 @@
 component ScrollTest {
-  use WindowScrollProvider { scrolls = \ => `this.forceUpdate()` }
+  use Provider.Scroll { scrolls = \event : Html.Event => `this.forceUpdate()` }
 
   style base {
     height: 3000px;

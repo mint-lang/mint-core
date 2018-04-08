@@ -2,7 +2,7 @@ suite "Timer.timeout" {
   test "resolves after a time" {
     with Test.Context {
       of("TEST")
-      |> then(\subject : String => Timer.timeout(1, subject))
+      |> timeout(1)
       |> then(
         \subject : String =>
           subject

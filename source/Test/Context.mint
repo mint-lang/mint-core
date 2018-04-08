@@ -11,6 +11,12 @@ module Test.Context {
     `
   }
 
+  fun timeout (duration : Number, context : Test.Context(a)) : Test.Context(a) {
+    then(
+      \subject : a => Timer.timeout(duration, subject),
+      context)
+  }
+
   fun assertEqual (a : a, context : Test.Context(a)) : Test.Context(a) {
     `
     context.step((subject)=> {
