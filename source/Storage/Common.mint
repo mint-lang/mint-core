@@ -19,6 +19,8 @@ module Storage.Common {
             return new Err($Storage_Error_QuotaExceeded)
           case 'QuotaExceededError':
             return new Err($Storage_Error_QuotaExceeded)
+          case 'NS_ERROR_DOM_QUOTA_REACHED':
+            return new Err($Storage_Error_QuotaExceeded)
           default:
             return new Err($Storage_Error_Unkown)
         }
