@@ -1,3 +1,13 @@
+suite "Comparing maybes" {
+  test "same maybes equals" {
+    Maybe.just("a") == Maybe.just("a")
+  }
+
+  test "different maybes not equals" {
+    Maybe.just("a") != Maybe.just("b")
+  }
+}
+
 suite "Maybe.nothing" {
   test "returns nothing" {
     Maybe.nothing()
@@ -12,12 +22,6 @@ suite "Maybe.just" {
   }
 }
 
-suite "Comparison" {
-  test "a" {
-    Maybe.just("a") == Maybe.just("a")
-  }
-}
-
 suite "Maybe.isJust" {
   test "returns true for a just" {
     Maybe.just("")
@@ -27,6 +31,18 @@ suite "Maybe.isJust" {
   test "returns false for nothing" {
     (Maybe.nothing()
     |> Maybe.isJust()) == false
+  }
+}
+
+suite "Maybe.isNothing" {
+  test "returns true for a nothing" {
+    Maybe.nothing()
+    |> Maybe.isNothing()
+  }
+
+  test "returns false for nothing" {
+    (Maybe.just("a")
+    |> Maybe.isNothing()) == false
   }
 }
 

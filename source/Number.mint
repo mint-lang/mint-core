@@ -7,8 +7,16 @@ module Number {
     `Math.abs(input % 2) === 0`
   }
 
+  fun isNaN (input : Number) : Bool {
+    `isNaN(input)`
+  }
+
   fun toString (input : Number) : String {
     `input.toString()`
+  }
+
+  fun toFixed (decimalPlaces : Number, input : Number) : String {
+    `input.toFixed(decimalPlaces)`
   }
 
   fun fromString (input : String) : Maybe(Number) {

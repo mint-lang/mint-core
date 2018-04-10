@@ -60,7 +60,7 @@ suite "Result.isOk" {
   }
 }
 
-suite "Result.isOk" {
+suite "Result.isError" {
   test "returns true for an error" {
     Result.error("")
     |> Result.isError()

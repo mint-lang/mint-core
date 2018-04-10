@@ -26,9 +26,25 @@ suite "Number.isEven" {
   }
 }
 
+suite "Number.isNaN" {
+  test "returns true for NaN" {
+    Number.isNaN(`NaN`)
+  }
+
+  test "returns false for a number" {
+    Number.isNaN(0) == false
+  }
+}
+
 suite "Number.toString" {
   test "returns string representation of a number" {
     Number.toString(100) == "100"
+  }
+}
+
+suite "Number.toFixed" {
+  test "returns string truncated to decimal places" {
+    Number.toFixed(2, 100.12345) == "100.12"
   }
 }
 

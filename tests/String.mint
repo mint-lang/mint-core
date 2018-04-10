@@ -10,6 +10,16 @@ suite "String.toUpperCase" {
   }
 }
 
+suite "String.match" {
+  test "returns true if string contains the pattern" {
+    String.match("ab", "aabbccdd")
+  }
+
+  test "returns false if string doesnot contain the pattern" {
+    String.match("xxs", "aabbccdd") == false
+  }
+}
+
 suite "String.reverse" {
   test "reverses a string" {
     String.reverse("hello") == "olleh"
