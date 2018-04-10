@@ -31,7 +31,7 @@ module Html.Event {
       } else {
         return ""
       }
-    })
+    })()
     `
   }
 
@@ -43,7 +43,19 @@ module Html.Event {
       } else {
         return false
       }
-    })
+    })()
+    `
+  }
+
+  fun charCode (event : Html.Event) : Number {
+    `
+    (() => {
+      if (typeof event.charCode === "number") {
+        return event.charCode
+      } else {
+        return -1
+      }
+    })()
     `
   }
 
@@ -55,19 +67,19 @@ module Html.Event {
       } else {
         return -1
       }
-    })
+    })()
     `
   }
 
   fun pageY (event : Html.Event) : Number {
     `
     (() => {
-      if (typeof event.pageX === "number") {
-        return event.pageX
+      if (typeof event.pageY === "number") {
+        return event.pageY
       } else {
         return -1
       }
-    })
+    })()
     `
   }
 }

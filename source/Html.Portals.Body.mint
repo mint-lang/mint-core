@@ -1,7 +1,7 @@
 component Html.Portals.Body {
-  property element : Html = Html.empty()
+  property children : Array(Html) = []
 
   fun render : Html {
-    `_.createPortal(this.element, document.body)`
+    `_createPortal(this.children, document.body)`
   }
 }
