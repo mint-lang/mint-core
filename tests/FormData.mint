@@ -1,3 +1,9 @@
+suite "FormData.equality" {
+  test "returns true if equal" {
+    FormData.empty() == FormData.empty()
+  }
+}
+
 suite "FormData.empty" {
   test "returns an empty form data object" {
     FormData.empty()

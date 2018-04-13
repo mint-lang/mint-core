@@ -24,12 +24,6 @@ suite "Time.fromIso" {
   }
 }
 
-suite "Time.now" {
-  test "returns the time as it is now" {
-    Time.now() == Time.now()
-  }
-}
-
 suite "Time.today" {
   test "returns the time as it is today" {
     Time.today() == Time.today()
