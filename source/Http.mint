@@ -1,8 +1,3 @@
-record Http.Header {
-  value : String,
-  key : String
-}
-
 record Http.Request {
   headers : Array(Http.Header),
   withCredentials : Bool,
@@ -16,10 +11,17 @@ record Http.Response {
   body : String
 }
 
-record Http.Error {
+record Http.ErrorResponse {
+  type : Http.Error,
   status : Number,
-  type : String,
   url : String
+}
+
+enum Http.Error {
+  NetworkError,
+  Aborted,
+  Timeout,
+  BadUrl
 }
 
 module Http {
@@ -80,10 +82,9 @@ module Http {
   fun header (key : String, value : String, request : Http.Request) : Http.Request {
     { request |
       headers =
-        Array.push({
-          value = value,
-          key = key
-        }, request.headers)
+        Array.push(
+          `new Record({ value: value, key: key })`,
+          request.headers)
     }
   }
 
@@ -96,7 +97,7 @@ module Http {
     `
   }
 
-  fun sendWithID (uid : String, request : Http.Request) : Promise(Http.Error, Http.Response) {
+  fun sendWithID (uid : String, request : Http.Request) : Promise(Http.ErrorResponse, Http.Response) {
     `
     new Promise((resolve, reject) => {
       if (!this._requests) { this._requests = {} }
@@ -109,9 +110,14 @@ module Http {
 
       try {
         xhr.open(request.method.toUpperCase(), request.url, true)
-      } catch (e) {
-        reject({ type: 'bad-url', url: request.url, status: xhr.status })
+      } catch (error) {
         delete this._requests[uid]
+
+        reject({
+          type: $Http_Error_BadUrl,
+          status: xhr.status,
+          url: request.url
+        })
       }
 
       request.headers.forEach((item) => {
@@ -119,23 +125,39 @@ module Http {
       })
 
       xhr.addEventListener('error', (event) => {
-        reject({ type: 'network-error', url: request.url, status: xhr.status })
         delete this._requests[uid]
+
+        reject({
+          type: $Http_Error_NetworkError,
+          status: xhr.status,
+          url: request.url
+        })
       })
 
       xhr.addEventListener('timeout', (event) => {
-        reject({ type: 'timeout', url: request.url, status: xhr.status })
         delete this._requests[uid]
+
+        reject({
+          type: $Http_Error_Timeout,
+          status: xhr.status,
+          url: request.url
+        })
       })
 
       xhr.addEventListener('load', (event) => {
-        resolve({ body: xhr.responseText, status: xhr.status })
         delete this._requests[uid]
+
+        resolve({ body: xhr.responseText, status: xhr.status })
       })
 
       xhr.addEventListener('abort', (event) => {
-        reject({ type: 'aborted', status: xhr.status })
         delete this._requests[uid]
+
+        reject({
+          type: $Http_Error_Aborted,
+          status: xhr.status,
+          url: request.url
+        })
       })
 
       xhr.send(request.body)
@@ -143,7 +165,7 @@ module Http {
     `
   }
 
-  fun send (request : Http.Request) : Promise(Http.Error, Http.Response) {
+  fun send (request : Http.Request) : Promise(Http.ErrorResponse, Http.Response) {
     sendWithID(Uid.generate(), request)
   }
 }

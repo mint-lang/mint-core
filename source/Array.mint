@@ -1,15 +1,38 @@
 module Array {
   fun first (array : Array(a)) : Maybe(a) {
     `
-    (()=> {
+    (() => {
       let first = array[0]
-      if (first) {
+      if (first !== undefined) {
         return new Just(first)
       } else {
         return new Nothing()
       }
     })()
     `
+  }
+
+  fun firstWithDefault (item : a, array : Array(a)) : a {
+    first(array)
+    |> Maybe.withDefault(item)
+  }
+
+  fun last (array : Array(a)) : Maybe(a) {
+    `
+    (() => {
+      let last = array[array.length - 1]
+      if (last !== undefined) {
+        return new Just(last)
+      } else {
+        return new Nothing()
+      }
+    })()
+    `
+  }
+
+  fun lastWithDefault (item : a, array : Array(a)) : a {
+    last(array)
+    |> Maybe.withDefault(item)
   }
 
   fun size (array : Array(a)) : Number {
@@ -44,7 +67,7 @@ module Array {
     `
     (() => {
       let item = array.find(func)
-      if (item) {
+      if (item != undefined) {
         return new Just(item)
       } else {
         return new Nothing()
@@ -86,10 +109,6 @@ module Array {
     `array.slice(from, to)`
   }
 
-  fun last (array : Array(a)) : a {
-    `array[array.length - 1]`
-  }
-
   fun isEmpty (array : Array(a)) : Bool {
     size(array) == 0
   }
@@ -103,11 +122,7 @@ module Array {
   }
 
   fun range (from : Number, to : Number) : Array(Number) {
-    `Array.from({ length: to - from }).map((v, i) => i + from)`
-  }
-
-  fun join (separator : String, array : Array(String)) : String {
-    `array.join(separator)`
+    `Array.from({ length: (to + 1) - from }).map((v, i) => i + from)`
   }
 
   fun do (array : Array(Void)) : Void {

@@ -1,10 +1,20 @@
-record File {
-  size : Number,
-  type : String,
-  name : String
-}
-
 module File {
+  fun fromString (contents : String, name : String, type : String) : File {
+    `new File([contents], name, { type: type })`
+  }
+
+  fun name (file : File) : String {
+    `file.name`
+  }
+
+  fun size (file : File) : Number {
+    `file.size`
+  }
+
+  fun mimeType (file : File) : String {
+    `file.type`
+  }
+
   fun selectMultiple (accept : String) : Promise(Never, Array(File)) {
     `
     (() => {
