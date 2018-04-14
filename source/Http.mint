@@ -18,7 +18,7 @@ record Http.ErrorResponse {
 }
 
 enum Http.Error {
-  NetWorkError,
+  NetworkError,
   Aborted,
   Timeout,
   BadUrl
@@ -80,7 +80,12 @@ module Http {
   }
 
   fun header (key : String, value : String, request : Http.Request) : Http.Request {
-    { request | headers = Array.push(`{ value: value, key: key }`, request.headers) }
+    { request |
+      headers =
+        Array.push(
+          `new Record({ value: value, key: key })`,
+          request.headers)
+    }
   }
 
   fun abortAll : Void {
@@ -92,7 +97,7 @@ module Http {
     `
   }
 
-  fun sendWithID (uid : String, request : Http.Request) : Promise(Http.Error, Http.Response) {
+  fun sendWithID (uid : String, request : Http.Request) : Promise(Http.ErrorResponse, Http.Response) {
     `
     new Promise((resolve, reject) => {
       if (!this._requests) { this._requests = {} }
@@ -105,7 +110,7 @@ module Http {
 
       try {
         xhr.open(request.method.toUpperCase(), request.url, true)
-      } catch (e) {
+      } catch (error) {
         delete this._requests[uid]
 
         reject({
@@ -160,7 +165,7 @@ module Http {
     `
   }
 
-  fun send (request : Http.Request) : Promise(Http.Error, Http.Response) {
+  fun send (request : Http.Request) : Promise(Http.ErrorResponse, Http.Response) {
     sendWithID(Uid.generate(), request)
   }
 }
