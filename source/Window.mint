@@ -44,10 +44,10 @@ module Window {
   }
 
   fun setScrollTop (position : Number) : Void {
-    `document.body.scrollTop = position`
+    `window.scrollTo(this.scrollTop(), position)`
   }
 
   fun setScrollLeft (position : Number) : Void {
-    `document.body.scrollLeft = position`
+    `window.scrollTo(position, this.scrollLeft())`
   }
 }
