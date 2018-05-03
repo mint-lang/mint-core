@@ -21,11 +21,11 @@ suite "Storage.Local.set" {
 
   test "it returns error if over the qouta" {
     try {
-      Storage.Local.set("test", String.repeat(10000000, "test"))
+      result =
+        Storage.Local.set("test", String.repeat(10000000, "test"))
+        |> Result.withError(Storage.Error::Unkown)
 
-      false
-    } catch Storage.Error => error {
-      error == Storage.Error::QuotaExceeded
+      (result == Storage.Error::QuotaExceeded)
     }
   }
 }
