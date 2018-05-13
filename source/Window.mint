@@ -3,6 +3,10 @@ module Window {
     `_navigate(url)`
   }
 
+  fun setUrl (url : String) : Void {
+    `_navigate(url, false)`
+  }
+
   fun title : String {
     `document.title`
   }
