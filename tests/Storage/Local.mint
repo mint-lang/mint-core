@@ -10,8 +10,6 @@ suite "Storage.Local.set" {
 
       value =
         Storage.Local.get("test")
-        |> Result.map(
-          \maybe : Maybe(String) => Maybe.withDefault("", maybe))
 
       (value == "test")
     } catch Storage.Error => error {
@@ -37,8 +35,6 @@ suite "Storage.Local.get" {
 
       value =
         Storage.Local.get("test")
-        |> Result.map(
-          \maybe : Maybe(String) => Maybe.withDefault("", maybe))
 
       (value == "test")
     } catch Storage.Error => error {
@@ -51,9 +47,9 @@ suite "Storage.Local.get" {
       value =
         Storage.Local.get("test")
 
-      Maybe.isNothing(value)
-    } catch Storage.Error => error {
       false
+    } catch Storage.Error => error {
+      true
     }
   }
 }

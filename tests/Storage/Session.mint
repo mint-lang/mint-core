@@ -10,8 +10,6 @@ suite "Storage.Session.set" {
 
       value =
         Storage.Session.get("test")
-        |> Result.map(
-          \maybe : Maybe(String) => Maybe.withDefault("", maybe))
 
       (value == "test")
     } catch Storage.Error => error {
@@ -37,8 +35,6 @@ suite "Storage.Session.get" {
 
       value =
         Storage.Session.get("test")
-        |> Result.map(
-          \maybe : Maybe(String) => Maybe.withDefault("", maybe))
 
       (value == "test")
     } catch Storage.Error => error {
@@ -51,9 +47,9 @@ suite "Storage.Session.get" {
       value =
         Storage.Session.get("test")
 
-      Maybe.isNothing(value)
-    } catch Storage.Error => error {
       false
+    } catch Storage.Error => error {
+      true
     }
   }
 }

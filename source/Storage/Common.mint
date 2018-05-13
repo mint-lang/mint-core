@@ -1,6 +1,7 @@
 enum Storage.Error {
   SecurityError,
   QuotaExceeded,
+  NotFound,
   Unkown
 }
 
@@ -29,16 +30,16 @@ module Storage.Common {
     `
   }
 
-  fun get (storage : Storage, key : String) : Result(Storage.Error, Maybe(String)) {
+  fun get (storage : Storage, key : String) : Result(Storage.Error, String) {
     `
     (() => {
       try {
         let value = storage.getItem(key)
 
         if (typeof value === "string") {
-          return new Ok(new Just(value))
+          return new Ok(value)
         } else {
-          return new Ok(new Nothing())
+          return new Err($Storage_Error_NotFound)
         }
       } catch (error) {
         switch(error.name) {

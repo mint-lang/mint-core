@@ -3,7 +3,7 @@ module Storage.Local {
     Storage.Common.set(`localStorage`, key, value)
   }
 
-  fun get (key : String) : Result(Storage.Error, Maybe(String)) {
+  fun get (key : String) : Result(Storage.Error, String) {
     Storage.Common.get(`localStorage`, key)
   }
 

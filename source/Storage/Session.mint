@@ -3,7 +3,7 @@ module Storage.Session {
     Storage.Common.set(`sessionStorage`, key, value)
   }
 
-  fun get (key : String) : Result(Storage.Error, Maybe(String)) {
+  fun get (key : String) : Result(Storage.Error, String) {
     Storage.Common.get(`sessionStorage`, key)
   }
 
