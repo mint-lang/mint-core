@@ -71,3 +71,15 @@ suite "Result.isError" {
     |> Result.isError()) == false
   }
 }
+
+suite "Result.toMaybe" {
+  test "returns just for an ok" {
+    (Result.ok("blah")
+    |> Result.toMaybe()) == Maybe.just("blah")
+  }
+
+  test "returns nothing for an error" {
+    (Result.error("blah")
+    |> Result.toMaybe()) == Maybe.nothing()
+  }
+}

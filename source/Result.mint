@@ -30,4 +30,16 @@ module Result {
   fun isError (input : Result(a, b)) : Bool {
     `input instanceof Err`
   }
+
+  fun toMaybe (result : Result(a, b)) : Maybe(b) {
+    `
+    (() => {
+      if (result instanceof Ok) {
+        return new Just(result.value)
+      } else {
+        return new Nothing()
+      }
+    })()
+    `
+  }
 }
