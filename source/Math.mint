@@ -26,4 +26,14 @@ module Math {
   fun max (number1 : Number, number2 : Number) : Number {
     `Math.max(number1, number2)`
   }
+
+  fun fmod (a : Number, b : Number) : Number {
+    `Number((a - (Math.floor(a / b) * b)).toPrecision(8))`
+  }
+
+  fun clamp (number : Number, bottom : Number, top : Number) : Number {
+    number
+    |> max(bottom)
+    |> min(top)
+  }
 }
