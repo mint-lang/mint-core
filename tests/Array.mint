@@ -346,3 +346,43 @@ suite "Array.range" {
     |> String.join("")) == "012345678910"
   }
 }
+
+suite "Array.sample" {
+  test "it returns nothing if the array is empty" {
+    Array.sample([]) == Maybe.nothing()
+  }
+
+  test "it returns the only item if the array" {
+    Array.sample([0]) == Maybe.just(0)
+  }
+
+  test "it returns an item from the array" {
+    Array.sample([
+      0,
+      1
+    ])
+    |> Maybe.isJust()
+  }
+}
+
+suite "Array.at" {
+  test "it returns nothing at 0 if the array is empty" {
+    Array.at(0, []) == Maybe.nothing()
+  }
+
+  test "it returns nothing index is over the arrays length" {
+    Array.at(1, []) == Maybe.nothing()
+  }
+
+  test "it returns item at index #1" {
+    Array.at(0, [0]) == Maybe.just(0)
+  }
+
+  test "it returns item at index #2" {
+    Array.at(2, [
+      1,
+      2,
+      3
+    ]) == Maybe.just(3)
+  }
+}

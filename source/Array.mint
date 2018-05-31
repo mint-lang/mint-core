@@ -136,4 +136,29 @@ module Array {
   fun max (array : Array(Number)) : Number {
     `Math.max(...array)`
   }
+
+  fun sample (array : Array(a)) : Maybe(a) {
+    `
+    (() => {
+      if (array.length) {
+        return new Just(array[Math.floor(Math.random() * array.length)])
+      } else {
+        return new Nothing()
+      }
+    })()
+    `
+  }
+
+  fun at (index : Number, array : Array(a)) : Maybe(a) {
+    `
+    (() => {
+      let item = array[index]
+      if (item !== undefined) {
+        return new Just(item)
+      } else {
+        return new Nothing()
+      }
+    })()
+    `
+  }
 }
