@@ -11,101 +11,30 @@ enum Object.Error {
 
 module Object.Decode {
   fun field (key : String, decoder : Function(Object, Result(Object.Error, a)), input : Object) : Result(Object.Error, a) {
-    `
-    (() => {
-      if (input == null ||
-          input == undefined ||
-          typeof input !== "object" ||
-          Array.isArray(input)) {
-        return new Err($Object_Error_NotAnObject)
-      } else {
-        const actual = input[key]
-        if (typeof actual === "undefined") {
-          return new Err($Object_Error_MissingObjectKey)
-        }
-        return decoder(actual)
-      }
-    })()
-    `
+    `Decoder.field(key, decoder)(input)`
   }
 
   fun string (input : Object) : Result(Object.Error, String) {
-    `
-    (() => {
-      if(typeof input != "string") {
-        return new Err($Object_Error_NotAString)
-      } else {
-        return new Ok(input)
-      }
-    })()
-    `
+    `Decoder.string(input)`
   }
 
   fun time (input : Object) : Result(Object.Error, Time) {
-    `
-    (() => {
-      const parsed = Date.parse(input)
-
-      if (Number.isNaN(parsed)) {
-        return new Err($Object_Error_NotAValidTime)
-      } else {
-        return new Ok(new Date(parsed))
-      }
-    })()
-    `
+    `Decoder.time(input)`
   }
 
   fun number (input : Object) : Result(Object.Error, Number) {
-    `
-    (() => {
-      if(typeof input != "number") {
-        let value = parseFloat(input)
-
-        if (isNaN(value)) {
-          return new Err($Object_Error_NotANumber)
-        } else {
-          return new Ok(value)
-        }
-      } else {
-        return new Ok(input)
-      }
-    })()
-    `
+    `Decoder.number(input)`
   }
 
   fun boolean (input : Object) : Result(Object.Error, Bool) {
-    `
-    (() => {
-      if(typeof input != "boolean") {
-        return new Err($Object_Error_NotABoolean)
-      } else {
-        return new Ok(input)
-      }
-    })()
-    `
+    `Decoder.boolean(input)`
   }
 
   fun array (decoder : Function(Object, Result(Object.Error, a)), input : Object) : Result(Object.Error, Array(a)) {
-    `
-    (() => {
-      if (!Array.isArray(input)) {
-        return new Err($Object_Error_NotAnArray)
-      }
+    `Decoder.array(decoder)(input)`
+  }
 
-      let results = []
-
-      for (let item of input) {
-        let result = decoder(item)
-
-        if (result instanceof Err) {
-          return result
-        } else {
-          results.push(result.value)
-        }
-      }
-
-      return new Ok(results)
-    })()
-    `
+  fun maybe (decoder : Function(Object, Result(Object.Error, a)), input : Object) : Result(Object.Error, Maybe(a)) {
+    `Decoder.maybe(decoder)(input)`
   }
 }
