@@ -89,3 +89,25 @@ suite "Object.Decode.array" {
     |> Result.withDefault([])) == ["asd"]
   }
 }
+
+suite "Object.Decode.maybe" {
+  test "it returns an error if it's not a valid string" {
+    (Object.Decode.maybe(Object.Decode.string, `0`)
+    |> Result.withError(Object.Error::Unkown)) == Object.Error::NotAString
+  }
+
+  test "it returns nothing for null" {
+    (Object.Decode.maybe(Object.Decode.string, `null`)
+    |> Result.withDefault(Maybe.just("A"))) == Maybe.nothing()
+  }
+
+  test "it returns nothing for undefined" {
+    (Object.Decode.maybe(Object.Decode.string, `undefined`)
+    |> Result.withDefault(Maybe.just("A"))) == Maybe.nothing()
+  }
+
+  test "it returns value if ok" {
+    (Object.Decode.maybe(Object.Decode.string, `"A"`)
+    |> Result.withDefault(Maybe.nothing())) == Maybe.just("A")
+  }
+}

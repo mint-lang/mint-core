@@ -33,4 +33,8 @@ module Object.Decode {
   fun array (decoder : Function(Object, Result(Object.Error, a)), input : Object) : Result(Object.Error, Array(a)) {
     `Decoder.array(decoder)(input)`
   }
+
+  fun maybe (decoder : Function(Object, Result(Object.Error, a)), input : Object) : Result(Object.Error, Maybe(a)) {
+    `Decoder.maybe(decoder)(input)`
+  }
 }
