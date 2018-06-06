@@ -1,12 +1,7 @@
-enum Object.Error {
-  MissingObjectKey,
-  NotAValidTime,
-  NotABoolean,
-  NotAnObject,
-  NotANumber,
-  NotAString,
-  NotAnArray,
-  Unkown
+module Object.Error {
+  fun toString (error : Object.Error) : String {
+    `error.toString()`
+  }
 }
 
 module Object.Decode {

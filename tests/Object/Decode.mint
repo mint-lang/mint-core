@@ -1,34 +1,34 @@
 suite "Object.Decode.field" {
   test "it returns an error if the input is null" {
-    (Object.Decode.field("a", Object.Decode.string, `null`)
-    |> Result.withError(Object.Error::Unkown)) == Object.Error::NotAnObject
+    Object.Decode.field("a", Object.Decode.string, `null`)
+    |> Result.isError()
   }
 
   test "it returns an error if the input is undefined" {
-    (Object.Decode.field("a", Object.Decode.string, `undefined`)
-    |> Result.withError(Object.Error::Unkown)) == Object.Error::NotAnObject
+    Object.Decode.field("a", Object.Decode.string, `undefined`)
+    |> Result.isError()
   }
 
   test "it returns an error if the input is an array" {
-    (Object.Decode.field("a", Object.Decode.string, `[]`)
-    |> Result.withError(Object.Error::Unkown)) == Object.Error::NotAnObject
+    Object.Decode.field("a", Object.Decode.string, `[]`)
+    |> Result.isError()
   }
 
   test "it returns an error if the input does not have the key" {
-    (Object.Decode.field("a", Object.Decode.string, `{}`)
-    |> Result.withError(Object.Error::Unkown)) == Object.Error::MissingObjectKey
+    Object.Decode.field("a", Object.Decode.string, `{}`)
+    |> Result.isError()
   }
 
   test "it returns an error if the it could not decode the value" {
-    (Object.Decode.field("a", Object.Decode.string, `{a: 0}`)
-    |> Result.withError(Object.Error::Unkown)) == Object.Error::NotAString
+    Object.Decode.field("a", Object.Decode.string, `{a: 0}`)
+    |> Result.isError()
   }
 }
 
 suite "Object.Decode.string" {
   test "it returns an error if it's not a string" {
-    (Object.Decode.string(`0`)
-    |> Result.withError(Object.Error::Unkown)) == Object.Error::NotAString
+    Object.Decode.string(`0`)
+    |> Result.isError()
   }
 
   test "it returns the value" {
@@ -39,8 +39,8 @@ suite "Object.Decode.string" {
 
 suite "Object.Decode.time" {
   test "it returns an error if it's not a valid date" {
-    (Object.Decode.time(`"asd"`)
-    |> Result.withError(Object.Error::Unkown)) == Object.Error::NotAValidTime
+    Object.Decode.time(`"asd"`)
+    |> Result.isError()
   }
 
   test "it returns the value" {
@@ -51,8 +51,8 @@ suite "Object.Decode.time" {
 
 suite "Object.Decode.number" {
   test "it returns an error if it's not a valid number" {
-    (Object.Decode.number(`"asd"`)
-    |> Result.withError(Object.Error::Unkown)) == Object.Error::NotANumber
+    Object.Decode.number(`"asd"`)
+    |> Result.isError()
   }
 
   test "it returns the value" {
@@ -63,8 +63,8 @@ suite "Object.Decode.number" {
 
 suite "Object.Decode.boolean" {
   test "it returns an error if it's not a valid boolean" {
-    (Object.Decode.boolean(`"asd"`)
-    |> Result.withError(Object.Error::Unkown)) == Object.Error::NotABoolean
+    Object.Decode.boolean(`"asd"`)
+    |> Result.isError()
   }
 
   test "it returns the value" {
@@ -75,13 +75,13 @@ suite "Object.Decode.boolean" {
 
 suite "Object.Decode.array" {
   test "it returns an error if it's not a valid array" {
-    (Object.Decode.array(Object.Decode.string, `"asd"`)
-    |> Result.withError(Object.Error::Unkown)) == Object.Error::NotAnArray
+    Object.Decode.array(Object.Decode.string, `"asd"`)
+    |> Result.isError()
   }
 
   test "it propagates the error if there is any" {
-    (Object.Decode.array(Object.Decode.string, `[0]`)
-    |> Result.withError(Object.Error::Unkown)) == Object.Error::NotAString
+    Object.Decode.array(Object.Decode.string, `[0]`)
+    |> Result.isError()
   }
 
   test "it returns the value" {
@@ -92,8 +92,8 @@ suite "Object.Decode.array" {
 
 suite "Object.Decode.maybe" {
   test "it returns an error if it's not a valid string" {
-    (Object.Decode.maybe(Object.Decode.string, `0`)
-    |> Result.withError(Object.Error::Unkown)) == Object.Error::NotAString
+    Object.Decode.maybe(Object.Decode.string, `0`)
+    |> Result.isError()
   }
 
   test "it returns nothing for null" {
