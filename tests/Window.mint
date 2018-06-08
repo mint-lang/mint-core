@@ -34,9 +34,12 @@ component ScrollTest {
 suite "Window.navigate" {
   test "it navigates to the given url with push state" {
     try {
+      url =
+        Window.url()
+
       Window.navigate("/blah")
 
-      Window.href() == "http://localhost:3000/blah"
+      (Window.href() == "http://localhost:" + url.port + "/blah")
     }
   }
 }
@@ -66,20 +69,16 @@ suite "Window.url" {
       (url.hostname == "localhost")
     }
   }
-
-  test "returns the correct port" {
-    try {
-      url =
-        Window.url()
-
-      (url.port == "3000")
-    }
-  }
 }
 
 suite "Window.href" {
   test "returns the current url as string" {
-    Window.href() == "http://localhost:3000/"
+    try {
+      url =
+        Window.url()
+
+      (Window.href() == "http://localhost:" + url.port + "/")
+    }
   }
 }
 
