@@ -1,8 +1,11 @@
+/* Functions for handling boolean values. */
 module Bool {
-  fun not (item : Bool) : Bool {
-    `!item`
-  }
+  /*
+  Converts a boolean to a string.
 
+    Bool.toString(true) == "true"
+    Bool.toString(false) == "false"
+  */
   fun toString (item : Bool) : String {
     `item.toString()`
   }
