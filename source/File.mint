@@ -1,6 +1,4 @@
-/*
-Functions for getting, creating and reading files in different formats.
-*/
+/* Functions for getting, creating and reading files in different formats. */
 module File {
   /*
   Creates a new file from the contents, name and mime-type.
@@ -40,7 +38,6 @@ module File {
   fun mimeType (file : File) : String {
     `file.type`
   }
-
 
   /*
   Opens the browsers file dialog for selecting multiple files using a promise.

@@ -1,4 +1,4 @@
-/* Module for functions to manipulate immutable arrays.   */
+/* Module for functions to manipulate immutable arrays. */
 module Array {
   /*
   Returns the first element of the array as `Maybe.just(a)` or `Maybe.nothing()`.
@@ -81,8 +81,8 @@ module Array {
   }
 
   /*
-  Reverses an array in place. The first array element becomes the last, and the
-  last array element becomes the first.
+  Returns a new array where the elements are reversed. The first array element
+  becomes the last, and the last array element becomes the first.
 
     Array.reverse([1, 2, 3]) == [4, 3, 2, 1]
   */
@@ -163,12 +163,19 @@ module Array {
   /*
   Returns a new sorted array using the given sorting function.
 
-    Array.sort(\number : Number => number, [4, 1, 3, 2]) == [1, 2, 3, 4]
+    Array.sort(\a : Number, b : Number => a - b, [4, 1, 3, 2]) == [1, 2, 3, 4]
   */
   fun sort (func : Function(a, a, Number), array : Array(a)) : Array(a) {
     `array.slice().sort(func)`
   }
 
+  /*
+  Returns a new sorted array using the given functions return as the base of
+  the sorting.
+
+
+    Array.sortBy(\number : Number => number, [4, 1, 3, 2]) == [1, 2, 3, 4]
+  */
   fun sortBy (func : Function(a, b), array : Array(a)) : Array(a) {
     `
     (() => {
@@ -190,38 +197,89 @@ module Array {
     `
   }
 
-  fun slice (from : Number, to : Number, array : Array(a)) : Array(a) {
-    `array.slice(from, to)`
+  /*
+  Returns a copy of a portion of an array (end not included).
+
+    Array.slice(2, 4, ["ant", "bison", "camel", "duck", "elephant"]) == ["camel", "duck"]
+  */
+  fun slice (begin : Number, end : Number, array : Array(a)) : Array(a) {
+    `array.slice(begin, end)`
   }
 
+  /*
+  Returns whether or not the array is empty.
+
+    Array.isEmpty([]) == true
+    Array.isEmpty(["a", "b"]) == false
+  */
   fun isEmpty (array : Array(a)) : Bool {
     size(array) == 0
   }
 
+  /*
+  Inserts the given element between the elements of the given array.
+
+    Array.intersperse("a", ["x", "y", "z"]) == ["x", "a", "y", "a", "z"]
+  */
   fun intersperse (item : a, array : Array(a)) : Array(a) {
     `array.reduce((a,v)=>[...a,v,item],[]).slice(0,-1)`
   }
 
+  /*
+  Checks whether or not the given element exists in the array.
+
+    Array.contains("a", ["a", "b", "c"]) == true
+    Array.contains("a", ["x", "y", "z"]) == false
+  */
   fun contains (other : a, array : Array(a)) : Bool {
-    `array.includes(other)`
+    `
+    (() => {
+      for (let item of array) {
+        if (_compare(other, item)) {
+          return true
+        }
+      }
+
+      return false
+    })()
+    `
   }
 
+  /*
+  Creates an array of numbers starting from the first agrument and
+  ending in the last.
+
+    Array.range(0, 5) == [0, 1, 2, 3, 4, 5]
+  */
   fun range (from : Number, to : Number) : Array(Number) {
     `Array.from({ length: (to + 1) - from }).map((v, i) => i + from)`
   }
 
-  fun do (array : Array(Void)) : Void {
-    `null`
-  }
+  /*
+  Deletes every occurence of the given element from the array.
 
+    Array.delete("a", ["a", "b", "c"]) == ["b", "c"]
+  */
   fun delete (what : a, array : Array(a)) : Array(a) {
-    `array.filter((item) => item !== what)`
+    reject(\item : a => item != what, array)
   }
 
+  /*
+  Returns the maximum value of an array of numbers.
+
+    Array.max([0, 1, 2, 3, 4]) == 4
+    Array.max([]) == 0
+  */
   fun max (array : Array(Number)) : Number {
     `Math.max(...array)`
   }
 
+  /*
+  Returns an random element from the array.
+
+    Array.sample(["a"]) == Maybe.just("a")
+    Array.sample() == Maybe.nothing()
+  */
   fun sample (array : Array(a)) : Maybe(a) {
     `
     (() => {
@@ -234,6 +292,12 @@ module Array {
     `
   }
 
+  /*
+  Returns the element at the given index.
+
+    Array.at(0, [0]) == Maybe.just(0)
+    Array.at(1, [0]) == Maybe.nothing()
+  */
   fun at (index : Number, array : Array(a)) : Maybe(a) {
     `
     (() => {
@@ -245,5 +309,21 @@ module Array {
       }
     })()
     `
+  }
+
+  /*
+  Collapses an array of voids into a single void.
+
+    Array.do([
+      do {
+        Debug.log("a")
+      },
+      do {
+        Debug.log("b")
+      }
+    ])
+  */
+  fun do (array : Array(Void)) : Void {
+    `null`
   }
 }

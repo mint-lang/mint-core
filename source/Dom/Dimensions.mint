@@ -9,7 +9,9 @@ record Dom.Dimensions {
   y : Number
 }
 
+/* Methods to work with dimensions in the DOM */
 module Dom.Dimensions {
+  /* Returns an empty Dom.Dimensions record. */
   fun empty : Dom.Dimensions {
     {
       bottom = 0,

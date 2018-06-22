@@ -71,10 +71,10 @@ module Http {
 
     request.method == "DELETE"
   */
-  fun delete (url : String) : Http.Request {
+  fun delete (urlValue : String) : Http.Request {
     empty()
     |> method("DELETE")
-    |> url(url)
+    |> url(urlValue)
   }
 
   /*
@@ -85,10 +85,10 @@ module Http {
 
     request.method == "GET"
   */
-  fun get (url : String) : Http.Request {
+  fun get (urlValue : String) : Http.Request {
     empty()
     |> method("GET")
-    |> url(url)
+    |> url(urlValue)
   }
 
   /*
@@ -99,10 +99,10 @@ module Http {
 
     request.method == "PUT"
   */
-  fun put (url : String) : Http.Request {
+  fun put (urlValue : String) : Http.Request {
     empty()
     |> method("PUT")
-    |> url(url)
+    |> url(urlValue)
   }
 
   /*
@@ -113,10 +113,10 @@ module Http {
 
     request.method == "POST"
   */
-  fun post (url : String) : Http.Request {
+  fun post (urlValue : String) : Http.Request {
     empty()
     |> method("POST")
-    |> url(url)
+    |> url(urlValue)
   }
 
   /*

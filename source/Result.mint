@@ -7,7 +7,7 @@ module Result {
     `new Ok(input)`
   }
 
-  fun withDefault (value : b, input : Result(x, b)) : b {
+  fun withDefault (value : b, input : Result(a, b)) : b {
     `input instanceof Ok ? input.value : value`
   }
 
