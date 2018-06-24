@@ -18,9 +18,9 @@ record Http.ErrorResponse {
 }
 
 enum Http.Error {
-  NetworkError,
-  Aborted,
-  Timeout,
+  NetworkError
+  Aborted
+  Timeout
   BadUrl
 }
 

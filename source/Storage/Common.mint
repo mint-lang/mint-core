@@ -1,7 +1,7 @@
 enum Storage.Error {
-  SecurityError,
-  QuotaExceeded,
-  NotFound,
+  SecurityError
+  QuotaExceeded
+  NotFound
   Unkown
 }
 
