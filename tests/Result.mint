@@ -40,6 +40,24 @@ suite "Result.map" {
   }
 }
 
+suite "Result.flatMap" {
+  test "flat maps over the Result" {
+    (Result.ok("TEST")
+    |> Result.flatMap(\r : String => Result.ok("TEST"))
+    |> Result.map(String.toLowerCase)
+    |> Result.withDefault("")) == "test"
+  }
+}
+
+suite "Result.join" {
+  test "flattens nested Results" {
+    (Result.ok(Result.ok("TEST"))
+    |> Result.join()
+    |> Result.map(String.toLowerCase)
+    |> Result.withDefault("")) == "test"
+  }
+}
+
 suite "Result.mapError" {
   test "maps over the ok value of the result" {
     (Result.error("TEST")

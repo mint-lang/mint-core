@@ -42,4 +42,17 @@ module Result {
     })()
     `
   }
+
+  fun join (input : Result(b, Result(a, b))) : Result(a, c) {
+    if (Result.isOk(input)) {
+      `input.value`
+    } else {
+      input
+    }
+  }
+
+  fun flatMap (func : Function(b, Result(a, c)), input : Result(a, b)) : Result(a, c) {
+    Result.map(func, input)
+    |> Result.join()
+  }
 }
