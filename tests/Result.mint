@@ -43,7 +43,7 @@ suite "Result.map" {
 suite "Result.flatMap" {
   test "flat maps over the Result" {
     (Result.ok("TEST")
-    |> Result.flatMap(\r : String => Result.ok("TEST"))
+    |> Result.flatMap(\r : String => Result.ok(r))
     |> Result.map(String.toLowerCase)
     |> Result.withDefault("")) == "test"
   }
