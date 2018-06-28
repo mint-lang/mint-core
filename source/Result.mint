@@ -42,4 +42,17 @@ module Result {
     })()
     `
   }
+
+  fun join (input : Result(error, Result(error, value))) : Result(error, value) {
+    if (Result.isOk(input)) {
+      `input.value`
+    } else {
+      `new Err()`
+    }
+  }
+
+  fun flatMap (func : Function(a, Result(error, b)), input : Result(error, a)) : Result(error, b) {
+    Result.map(func, input)
+    |> Result.join()
+  }
 }
