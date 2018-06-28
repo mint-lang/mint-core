@@ -51,7 +51,7 @@ module Result {
     }
   }
 
-  fun flatMap (func : Function(f, Result(error, value)), input : Result(error, value)) : Result(error, value) {
+  fun flatMap (func : Function(a, Result(error, b)), input : Result(error, a)) : Result(error, b) {
     Result.map(func, input)
     |> Result.join()
   }
