@@ -43,15 +43,15 @@ module Result {
     `
   }
 
-  fun join (input : Result(b, Result(a, b))) : Result(a, c) {
+  fun join (input : Result(error, Result(error, value))) : Result(error, value) {
     if (Result.isOk(input)) {
       `input.value`
     } else {
-      input
+      `new Err()`
     }
   }
 
-  fun flatMap (func : Function(b, Result(a, c)), input : Result(a, b)) : Result(a, c) {
+  fun flatMap (func : Function(b, Result(error, value)), input : Result(error, value)) : Result(error, value) {
     Result.map(func, input)
     |> Result.join()
   }
