@@ -85,3 +85,35 @@ suite "Maybe.toResult" {
     |> Result.withDefault("")) == "A"
   }
 }
+
+suite "Maybe.flatten" {
+  test "returns a nested just" {
+    (Maybe.just("A")
+    |> Maybe.just()
+    |> Maybe.flatten()) == Maybe.just("A")
+  }
+
+  test "returns nested nothing" {
+    (Maybe.nothing()
+    |> Maybe.just()
+    |> Maybe.flatten()) == Maybe.nothing()
+  }
+}
+
+suite "Maybe.oneOf" {
+  test "returns the first just" {
+    ([
+      Maybe.nothing(),
+      Maybe.just("A")
+    ]
+    |> Maybe.oneOf()) == Maybe.just("A")
+  }
+
+  test "returns nested nothing" {
+    ([
+      Maybe.nothing(),
+      Maybe.nothing()
+    ]
+    |> Maybe.oneOf()) == Maybe.nothing()
+  }
+}

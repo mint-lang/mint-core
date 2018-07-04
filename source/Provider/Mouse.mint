@@ -4,6 +4,7 @@ record Provider.Mouse.Subscription {
   ups : Function(Html.Event, Void)
 }
 
+/* A provider for global mouse events. */
 provider Provider.Mouse : Provider.Mouse.Subscription {
   fun moves (event : Html.Event) : Void {
     subscriptions

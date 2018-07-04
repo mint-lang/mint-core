@@ -1,3 +1,4 @@
+/* Record for the dimensions of an element on the screen. */
 record Dom.Dimensions {
   height : Number,
   bottom : Number,

@@ -1,3 +1,4 @@
+/* Represents an HTTP request. */
 record Http.Request {
   headers : Array(Http.Header),
   withCredentials : Bool,
@@ -6,21 +7,31 @@ record Http.Request {
   url : String
 }
 
+/* Represents an HTTP response. */
 record Http.Response {
   status : Number,
   body : String
 }
 
+/* Represents an HTTP request which failed to load. */
 record Http.ErrorResponse {
   type : Http.Error,
   status : Number,
   url : String
 }
 
+/* Represents the possible failures of an HTTP request. */
 enum Http.Error {
+  /* The request cannot be loaded because of a network faliure */
   NetworkError
+
+  /* The client (browser) aborted the request */
   Aborted
+
+  /* The request timed out */
   Timeout
+
+  /* The url is malformed and cannot be loaded */
   BadUrl
 }
 

@@ -1,7 +1,15 @@
+/* Represents the possible failures when dealing with the `Storage` API. */
 enum Storage.Error {
+  /* The storage API is disabled. */
   SecurityError
+
+  /* The storage is full (over the qouta, usually 5MB). */
   QuotaExceeded
+
+  /* The key in the storage does not exists. */
   NotFound
+
+  /* The reason for the faliure is unkown. */
   Unkown
 }
 
