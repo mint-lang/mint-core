@@ -13,7 +13,9 @@ enum Storage.Error {
   Unkown
 }
 
+/* Common implementation of the storage api. */
 module Storage.Common {
+  /* Sets the given key to the given value in the given storage. */
   fun set (storage : Storage, key : String, value : String) : Result(Storage.Error, Void) {
     `
     (() => {
@@ -38,6 +40,7 @@ module Storage.Common {
     `
   }
 
+  /* Gets the value of given key in the given storage. */
   fun get (storage : Storage, key : String) : Result(Storage.Error, String) {
     `
     (() => {
@@ -61,6 +64,7 @@ module Storage.Common {
     `
   }
 
+  /* Removes the value with the given key from the given storage. */
   fun remove (storage : Storage, key : String) : Result(Storage.Error, Void) {
     `
     (() => {
@@ -79,6 +83,7 @@ module Storage.Common {
     `
   }
 
+  /* Clears the given storage. */
   fun clear (storage : Storage) : Result(Storage.Error, Void) {
     `
     (() => {
@@ -97,6 +102,7 @@ module Storage.Common {
     `
   }
 
+  /* Returns the number of items in the storage. */
   fun size (storage : Storage) : Result(Storage.Error, Number) {
     `
     (() => {
@@ -114,6 +120,7 @@ module Storage.Common {
     `
   }
 
+  /* Returns the keys in the given storage. */
   fun keys (storage : Storage) : Result(Storage.Error, Array(String)) {
     `
     (() => {

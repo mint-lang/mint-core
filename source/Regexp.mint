@@ -1,3 +1,4 @@
+/* Represents the options for a regular expression. */
 record Regexp.Options {
   caseInsensitive : Bool,
   multiline : Bool,
@@ -6,17 +7,39 @@ record Regexp.Options {
   sticky : Bool
 }
 
+/* Represents a regular expression match. */
 record Regexp.Match {
   submatches : Array(String),
   match : String,
   index : Number
 }
 
+/* Functions for working with regular expressions. */
 module Regexp {
+  /*
+  Creates a new regular expression from a string.
+
+    (Regexp.create("test")
+    |> Regexp.toString()) == "/test/"
+  */
   fun create (input : String) : Regexp {
     `new RegExp(input)`
   }
 
+  /*
+  Creates a new regular expression using the given options.
+
+    (Regexp.createWithOptions(
+      "test",
+      {
+        caseInsensitive = true,
+        multiline = true,
+        unicode = true,
+        global = true,
+        sticky = true
+      })
+    |> Regexp.toString()) == "/test/gimuy"
+  */
   fun createWithOptions (input : String, options : Regexp.Options) : Regexp {
     `
     (() => {
@@ -33,18 +56,52 @@ module Regexp {
     `
   }
 
+  /*
+  Returns the string representation of the given regular expression.
+
+    (Regexp.create("test")
+    |> Regexp.toString()) == "/test/"
+  */
   fun toString (regexp : Regexp) : String {
     `regexp.toString()`
   }
 
+  /*
+  Escapes the given input to use in the regular expression.
+
+    Regexp.escape("-{") == "\\-\\{"
+  */
   fun escape (input : String) : String {
     `input.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')`
   }
 
+  /*
+  Splits the given string by the given regular expression.
+
+    (Regexp.create(",")
+    |> Regexp.split("a,b,c,d")) == ["a", "b", "c", "d"]
+  */
   fun split (input : String, regexp : Regexp) : Array(String) {
     `input.split(regexp)`
   }
 
+  /*
+  Replaces the matches of the given regular expression using the given function
+  to caluclate the replacement string.
+
+    (Regexp.createWithOptions(
+      "\\w",
+      {
+        caseInsensitive = true,
+        multiline = false,
+        unicode = false,
+        global = true,
+        sticky = false
+      })
+    |> Regexp.replace(
+      "a,b,c,d",
+      \match : Regexp.Match => match.match + "1")) == "a1,b1,c1,d1"
+  */
   fun replace (input : String, replacer : Function(Regexp.Match, String), regexp : Regexp) : String {
     `
     (() => {
