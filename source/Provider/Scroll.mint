@@ -1,8 +1,11 @@
+/* Represents a subscription for `Provider.Scroll` */
 record Provider.Scroll.Subscription {
   scrolls : Function(Html.Event, Void)
 }
 
+/* A provider for global scroll events. */
 provider Provider.Scroll : Provider.Scroll.Subscription {
+  /* Calls the `scrolls` function of the subscribers with the given value. */
   fun scrolls (event : Html.Event) : Void {
     subscriptions
     |> Array.map(
@@ -12,6 +15,7 @@ provider Provider.Scroll : Provider.Scroll.Subscription {
     |> Array.do()
   }
 
+  /* Attaches the provider. */
   fun attach : Void {
     `
     (() => {
@@ -22,6 +26,7 @@ provider Provider.Scroll : Provider.Scroll.Subscription {
     `
   }
 
+  /* Detaches the provider. */
   fun detach : Void {
     `
     (() => {
