@@ -1,3 +1,4 @@
+/* Represents an HTML event. */
 record Html.Event {
   bubbles : Bool,
   cancelable : Bool,

@@ -1,3 +1,4 @@
+/* Represents a subscription for `Provider.AnimationFrame` */
 record Provider.AnimationFrame.Subscription {
   frames : Function(Void)
 }

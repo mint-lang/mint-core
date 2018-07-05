@@ -1,3 +1,4 @@
+/* Mathematical functions. */
 module Math {
   /*
   Negates the given number.

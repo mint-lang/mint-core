@@ -44,7 +44,7 @@ suite "String.join" {
 }
 
 suite "String.concat" {
-  test "joins an arra yof strings together" {
+  test "joins an array of strings together" {
     ([
       "a",
       "b",

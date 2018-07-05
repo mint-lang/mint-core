@@ -1,3 +1,4 @@
+/* Represents a subscription for `Provider.Mouse` */
 record Provider.Mouse.Subscription {
   clicks : Function(Html.Event, Void),
   moves : Function(Html.Event, Void),
@@ -6,6 +7,7 @@ record Provider.Mouse.Subscription {
 
 /* A provider for global mouse events. */
 provider Provider.Mouse : Provider.Mouse.Subscription {
+  /* Calls the `moves` function on the subscribers with the given event. */
   fun moves (event : Html.Event) : Void {
     subscriptions
     |> Array.map(
@@ -14,6 +16,7 @@ provider Provider.Mouse : Provider.Mouse.Subscription {
     |> Array.do()
   }
 
+  /* Calls the `clicks` function on the subscribers with the given event. */
   fun clicks (event : Html.Event) : Void {
     subscriptions
     |> Array.map(
@@ -22,6 +25,7 @@ provider Provider.Mouse : Provider.Mouse.Subscription {
     |> Array.do()
   }
 
+  /* Calls the `ups` function on the subscribers with the given event. */
   fun ups (event : Html.Event) : Void {
     subscriptions
     |> Array.map(
@@ -30,6 +34,7 @@ provider Provider.Mouse : Provider.Mouse.Subscription {
     |> Array.do()
   }
 
+  /* Attaches the provider. */
   fun attach : Void {
     `
     (() => {
@@ -44,6 +49,7 @@ provider Provider.Mouse : Provider.Mouse.Subscription {
     `
   }
 
+  /* Detaches the provider. */
   fun detach : Void {
     `
     (() => {
