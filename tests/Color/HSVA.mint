@@ -159,3 +159,32 @@ suite "Color.HSVA.toRGBA" {
     }
   }
 }
+
+suite "Color.HSVA.fromHSVA" {
+  test "returns a new color" {
+    Color.HSVA.fromHSVA(0, 0, 0, 0) == {
+      saturation = 0,
+      alpha = 0,
+      value = 0,
+      hue = 0
+    }
+  }
+
+  test "clamps colors to lower value" {
+    Color.HSVA.fromHSVA(-10, -10, -10, -10) == {
+      saturation = 0,
+      alpha = 0,
+      value = 0,
+      hue = 0
+    }
+  }
+
+  test "clamps colors to upper value" {
+    Color.HSVA.fromHSVA(1000, 1000, 1000, 1000) == {
+      saturation = 100,
+      alpha = 100,
+      value = 100,
+      hue = 360
+    }
+  }
+}

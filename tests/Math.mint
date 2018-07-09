@@ -47,3 +47,27 @@ suite "Math.max" {
     Math.max(0, 1) == 1
   }
 }
+
+suite "Math.fmod" {
+  test "returns the floating-point remainder of 5.3 by 2" {
+    Math.fmod(5.3, 2) == 1.3
+  }
+
+  test "returns the floating-point remainder of 18.5 by 4.2" {
+    Math.fmod(18.5, 4.2) == 1.7
+  }
+}
+
+suite "Math.clamp" {
+  test "returns the bottom if the number is lower then that" {
+    Math.clamp(-20, 0, 10) == 0
+  }
+
+  test "returns the top if the number is lower then that" {
+    Math.clamp(20, 0, 10) == 10
+  }
+
+  test "returns the number if it's between top and bottom" {
+    Math.clamp(5, 0, 10) == 5
+  }
+}

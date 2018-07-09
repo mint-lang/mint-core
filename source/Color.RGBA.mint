@@ -1,12 +1,15 @@
-record Color {
+/* Represents a color by red, green, blue and alpha. */
+record Color.RGBA {
   alpha : Number,
   green : Number,
   blue : Number,
   red : Number
 }
 
-module Color {
-  fun fromRGBA (red : Number, green : Number, blue : Number, alpha : Number) : Color {
+/* Utility functions for the `Color.RGBA` type. */
+module Color.RGBA {
+  /* Creates a new color from the given values. */
+  fun fromRGBA (red : Number, green : Number, blue : Number, alpha : Number) : Color.RGBA {
     {
       green = Math.clamp(green, 0, 255),
       alpha = Math.clamp(alpha, 0, 100),
@@ -15,12 +18,13 @@ module Color {
     }
   }
 
-  fun toHSVA (color : Color) : Color.HSVA {
+  /* Converts a `Color.RGBA` to `Color.HSVA` */
+  fun toHSVA (color : Color.RGBA) : Color.HSVA {
     {
-      saturation = saturation * 100,
-      value = value * 100,
-      alpha = color.alpha,
-      hue = hue
+      saturation = Math.round(saturation * 100),
+      value = Math.round(value * 100),
+      alpha = Math.round(color.alpha),
+      hue = Math.round(hue)
     }
   } where {
     red =
@@ -62,10 +66,10 @@ module Color {
         if (cMax == red) {
           60 * Math.fmod((green - blue) / delta, 6)
         } else {
-          if (cMax == green) {
-            60 * ((blue - red / delta) + 2)
-          } else {
+          if (cMax == blue) {
             60 * ((red - green / delta) + 4)
+          } else {
+            60 * ((blue - red / delta) + 2)
           }
         }
       }

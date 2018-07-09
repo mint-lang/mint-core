@@ -64,10 +64,22 @@ module Math {
     `Math.max(number1, number2)`
   }
 
+  /*
+  Returns the floating-point remainder of two numbers.
+
+    Math.fmod(5.3, 2) == 1.3
+    Math.fmod(18.5, 4.2) == 1.7
+  */
   fun fmod (a : Number, b : Number) : Number {
     `Number((a - (Math.floor(a / b) * b)).toPrecision(8))`
   }
 
+  /*
+  Clamps the given number between the top and bottom numbers.
+
+    Math.clamp(20, 0, 10) == 10
+    Math.clamp(-20, 0, 10) == 0
+  */
   fun clamp (number : Number, bottom : Number, top : Number) : Number {
     number
     |> max(bottom)

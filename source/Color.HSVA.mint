@@ -1,3 +1,4 @@
+/* Represents a color by hue, saturation, value and alpha. */
 record Color.HSVA {
   saturation : Number,
   value : Number,
@@ -5,7 +6,9 @@ record Color.HSVA {
   hue : Number
 }
 
+/* Utility functions for the `Color.HSVA` type. */
 module Color.HSVA {
+  /* Creates a new color from the given values. */
   fun fromHSVA (hue : Number, saturation : Number, value : Number, alpha : Number) : Color.HSVA {
     {
       saturation = Math.clamp(saturation, 0, 100),
@@ -15,7 +18,8 @@ module Color.HSVA {
     }
   }
 
-  fun toRGBA (color : Color.HSVA) : Color {
+  /* Converts a `Color.HSVA` to `Color.RGBA` */
+  fun toRGBA (color : Color.HSVA) : Color.RGBA {
     { base |
       green = Math.ceil((base.green + m) * 255),
       blue = Math.ceil((base.blue + m) * 255),
