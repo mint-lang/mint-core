@@ -3,7 +3,7 @@ module Test.Html {
   /*
   Starts a test of an `Html` node.
 
-  Test.Html.start(<div><{ "Content" }></div>)
+    Test.Html.start(<div><{ "Content" }></div>)
   */
   fun start (node : Html) : Test.Context(Dom.Element) {
     `
