@@ -1,3 +1,4 @@
+/* Represents an HTML event. */
 record Html.Event {
   bubbles : Bool,
   cancelable : Bool,
@@ -39,15 +40,37 @@ record Html.Event {
   elapsedTime : Number
 }
 
+/* Utilit functions for `Html.Event` */
 module Html.Event {
+  /*
+  Stops the propagation of the given event.
+
+    do {
+      Html.Event.stopPropagation(event)
+      doSomethingElse()
+    }
+  */
   fun stopPropagation (event : Html.Event) : Void {
     `event.stopPropagation()`
   }
 
+  /*
+  Returns whether or not the events propagation is stopped or not.
+
+    Html.Event.isPropagationStopped(event)
+  */
   fun isPropagationStopped (event : Html.Event) : Bool {
     `event.isPropagationStopped()`
   }
 
+  /*
+  Prevents the default action of the event from happening.
+
+    do {
+      Html.Event.preventDefault(event)
+      doSomethingElse()
+    }
+  */
   fun preventDefault (event : Html.Event) : Void {
     `event.preventDefault()`
   }

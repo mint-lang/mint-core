@@ -1,8 +1,29 @@
+/* A module for writing complex tests. */
 module Test.Context {
+  /* Starts a test using the given value.
+
+    test {
+      with Test.Context {
+        of(5)
+        |> Test.assertEqual(5)
+      }
+    }
+  */
   fun of (a : a) : Test.Context(a) {
     `new TestContext(a)`
   }
 
+  /*
+  Adds a transformation step to the test.
+
+    test {
+      with Test.Context {
+        of(5)
+        |> then(\number : Number => Promise.resolve(number + 2))
+        |> assertEqual(7)
+      }
+    }
+  */
   fun then (proc : Function(a, Promise(b, c)), context : Test.Context(a)) : Test.Context(c) {
     `
     context.step((subject)=> {
@@ -11,12 +32,23 @@ module Test.Context {
     `
   }
 
+  /* Adds a timeout to the text using the given duration (in milliseconds). */
   fun timeout (duration : Number, context : Test.Context(a)) : Test.Context(a) {
     then(
       \subject : a => Timer.timeout(duration, subject),
       context)
   }
 
+  /*
+  Asserts the equality of the current value of the test with the given one.
+
+    test {
+      with Test.Context {
+        of(5)
+        |> Test.assertEqual(5)
+      }
+    }
+  */
   fun assertEqual (a : a, context : Test.Context(a)) : Test.Context(a) {
     `
     context.step((subject)=> {

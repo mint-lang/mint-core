@@ -1,8 +1,11 @@
+/* Represents a subscription for `Provider.AnimationFrame` */
 record Provider.AnimationFrame.Subscription {
   frames : Function(Void)
 }
 
+/* A provider for the `requestAnimationFrame` API. */
 provider Provider.AnimationFrame : Provider.AnimationFrame.Subscription {
+  /* Updates the subscribers. */
   fun update : Void {
     subscriptions
     |> Array.map(
@@ -11,6 +14,7 @@ provider Provider.AnimationFrame : Provider.AnimationFrame.Subscription {
     |> Array.do()
   }
 
+  /* Attaches the provider. */
   fun attach : Void {
     `
     (() => {
@@ -20,6 +24,7 @@ provider Provider.AnimationFrame : Provider.AnimationFrame.Subscription {
     `
   }
 
+  /* This function handles the animation frame. */
   fun frame : Void {
     `
     (() => {
@@ -31,6 +36,7 @@ provider Provider.AnimationFrame : Provider.AnimationFrame.Subscription {
     `
   }
 
+  /* Detaches the provider. */
   fun detach : Void {
     `cancelAnimationFrame(this.id)`
   }
