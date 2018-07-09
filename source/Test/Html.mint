@@ -1,7 +1,7 @@
 /* Module for testing `Html` */
 module Test.Html {
   /*
-    Starts a test of an `Html` node.
+  Starts a test of an `Html` node.
 
     Test.Html.start(<div><{ "Content" }></div>)
   */
