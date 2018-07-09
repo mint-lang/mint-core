@@ -3,12 +3,12 @@ module Test.Context {
   /*
   Starts a test using the given value.
 
-     test {
-       with Test.Context {
-         of(5)
-         |> Test.assertEqual(5)
-       }
-     }
+    test {
+      with Test.Context {
+        of(5)
+        |> Test.assertEqual(5)
+      }
+    }
   */
   fun of (a : a) : Test.Context(a) {
     `new TestContext(a)`
