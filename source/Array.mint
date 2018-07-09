@@ -326,4 +326,17 @@ module Array {
   fun do (array : Array(Void)) : Void {
     `null`
   }
+
+  /*
+  Applies the given function against an accumulator and each element in the
+  array (from left to right) to reduce it to a single value.
+
+    Array.reduce(
+      0,
+      \memo : Number, item : Number => memo + item,
+      [1, 2, 3]) == 6
+  */
+  fun reduce (initial : a, method : Function(b, a, b), array : Array(a)) : b {
+    `array.reduce(method, initial)`
+  }
 }

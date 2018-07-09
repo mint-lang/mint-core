@@ -386,3 +386,16 @@ suite "Array.at" {
     ]) == Maybe.just(3)
   }
 }
+
+suite "Array.reduce" {
+  test "it reduces an array to a single value" {
+    Array.reduce(
+      0,
+      \memo : Number, item : Number => memo + item,
+      [
+        1,
+        2,
+        3
+      ]) == 6
+  }
+}
