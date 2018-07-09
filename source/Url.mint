@@ -35,4 +35,40 @@ module Url {
     })()
     `
   }
+
+  /*
+  Creates an url from the given content and type, which is available until the
+  current window is closed.
+
+    Url.createObjectUrlFromString("Content", "text/html")
+  */
+  fun createObjectUrlFromString (string : String, type : String) : String {
+    `
+    (() => {
+      let blob = new Blob([string], {type : type})
+      return URL.createObjectURL(blob)
+    })()
+    `
+  }
+
+  /*
+  Creates an url from the given file, which is available until the current
+  window is closed.
+
+    File.fromString("Content", "test.html", "text/html")
+    |> Url.createObjectUrlFromFile()
+  */
+  fun createObjectUrlFromFile (file : File) : String {
+    `URL.createObjectURL(file)`
+  }
+
+  /*
+  Releases an existing object URL which was previously created.
+
+    Url.createObjectUrlFromString("Content", "text/html")
+    |> Url.revokeObjectUrl()
+  */
+  fun revokeObjectUrl (url : String) : Void {
+    `URL.revokeObjectURL(url)`
+  }
 }

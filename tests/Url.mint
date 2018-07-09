@@ -17,3 +17,27 @@ suite "Url.parse" {
     }
   }
 }
+
+suite "Url.createObjectUrlFromFile" {
+  test "it creates an url from a file" {
+    (File.fromString("Content", "test.html", "text/html")
+    |> Url.createObjectUrlFromFile()) != ""
+  }
+}
+
+suite "Url.createObjectUrlFromString" {
+  test "it creates an url from a file" {
+    Url.createObjectUrlFromString("Content", "text/html") != ""
+  }
+}
+
+suite "Url.revokeObjectUrl" {
+  test "it revokes the given url" {
+    try {
+      Url.createObjectUrlFromString("Content", "text/html")
+      |> Url.revokeObjectUrl()
+
+      true
+    }
+  }
+}
