@@ -63,4 +63,22 @@ module Test.Context {
     })
     `
   }
+
+  fun assertOf (value : b, method : Function(a, b), context : Test.Context(a)) : Test.Context(a) {
+    `
+    context.step((item) => {
+      let actual = method(item)
+
+      if (actual == value) {
+        return item
+      } else {
+        throw \`Assertion failed ${actual} === ${value}\`
+      }
+    })
+    `
+  }
+
+  fun map (method : Function(a, b), context : Test.Context(a)) : Test.Context(b) {
+    then(\item : a => Promise.resolve(method(item)), context)
+  }
 }
