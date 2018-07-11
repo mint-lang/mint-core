@@ -113,7 +113,7 @@ module Test.Html {
         if (actual == value) {
           return element
         } else {
-          throw \`Style did not match\`
+          throw \`Style did not match expected "${value}" got "${actual}"\`
         }
       } else {
         throw \`Could not find element with selector: ${selector}\`
