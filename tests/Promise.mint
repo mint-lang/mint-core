@@ -28,8 +28,8 @@ component Test.Promise {
         <{ state.result }>
       </result>
 
-      <resolve onClick={\event : Html.Event => resolve()}/>
-      <reject onClick={\event : Html.Event => reject()}/>
+      <resolve onClick={(event : Html.Event) : Void => { resolve() }}/>
+      <reject onClick={(event : Html.Event) : Void => { reject() }}/>
     </div>
   }
 }

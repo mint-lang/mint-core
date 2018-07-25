@@ -33,7 +33,7 @@ module Maybe {
   Maps the value of a maybe.
 
     (Maybe.just(1)
-    |> Maybe.map(\number : Number => number + 2)) == 3
+    |> Maybe.map((number : Number) : Number => { number + 2 })) == 3
   */
   fun map (func : Function(a, b), maybe : Maybe(a)) : Maybe(b) {
     `
@@ -110,7 +110,7 @@ module Maybe {
   */
   fun oneOf (array : Array(Maybe(a))) : Maybe(a) {
     array
-    |> Array.find(\item : Maybe(a) => Maybe.isJust(item))
+    |> Array.find((item : Maybe(a)) : Bool => { Maybe.isJust(item) })
     |> flatten()
   }
 }

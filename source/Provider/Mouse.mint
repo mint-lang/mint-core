@@ -11,8 +11,9 @@ provider Provider.Mouse : Provider.Mouse.Subscription {
   fun moves (event : Html.Event) : Void {
     subscriptions
     |> Array.map(
-      \subcription : Provider.Mouse.Subscription => subcription.moves)
-    |> Array.map(\func : Function(Html.Event, Void) => func(event))
+      (subcription : Provider.Mouse.Subscription) : Function(Html.Event, Void) => { subcription.moves })
+    |> Array.map(
+      (func : Function(Html.Event, Void)) : Void => { func(event) })
     |> Array.do()
   }
 
@@ -20,8 +21,9 @@ provider Provider.Mouse : Provider.Mouse.Subscription {
   fun clicks (event : Html.Event) : Void {
     subscriptions
     |> Array.map(
-      \subcription : Provider.Mouse.Subscription => subcription.clicks)
-    |> Array.map(\func : Function(Html.Event, Void) => func(event))
+      (subcription : Provider.Mouse.Subscription) : Function(Html.Event, Void) => { subcription.clicks })
+    |> Array.map(
+      (func : Function(Html.Event, Void)) : Void => { func(event) })
     |> Array.do()
   }
 
@@ -29,8 +31,9 @@ provider Provider.Mouse : Provider.Mouse.Subscription {
   fun ups (event : Html.Event) : Void {
     subscriptions
     |> Array.map(
-      \subcription : Provider.Mouse.Subscription => subcription.ups)
-    |> Array.map(\func : Function(Html.Event, Void) => func(event))
+      (subcription : Provider.Mouse.Subscription) : Function(Html.Event, Void) => { subcription.ups })
+    |> Array.map(
+      (func : Function(Html.Event, Void)) : Void => { func(event) })
     |> Array.do()
   }
 

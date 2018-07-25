@@ -58,6 +58,6 @@ suite "Regexp.replace" {
       })
     |> Regexp.replace(
       "a,b,c,d",
-      \match : Regexp.Match => match.match + Number.toString(match.index))) == "a1,b2,c3,d4"
+      (match : Regexp.Match) : String => { match.match + Number.toString(match.index) })) == "a1,b2,c3,d4"
   }
 }

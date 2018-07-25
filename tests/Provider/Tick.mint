@@ -5,7 +5,7 @@ record Test.Provider.Tick {
 component Test.Provider.Tick {
   state : Test.Provider.Tick { counter = 0 }
 
-  use Provider.Tick { ticks = \ => next { state | counter = state.counter + 1 } }
+  use Provider.Tick { ticks = () : Void => { next { state | counter = state.counter + 1 } } }
 
   fun render : Html {
     <div>

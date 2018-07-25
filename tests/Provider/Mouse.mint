@@ -12,9 +12,9 @@ component Test.Provider.Mouse {
   }
 
   use Provider.Mouse {
-    clicks = \event : Html.Event => next { state | clicks = state.clicks + 1 },
-    moves = \event : Html.Event => next { state | moves = state.moves + 1 },
-    ups = \event : Html.Event => next { state | ups = state.ups + 1 }
+    clicks = (event : Html.Event) : Void => { next { state | clicks = state.clicks + 1 } },
+    moves = (event : Html.Event) : Void => { next { state | moves = state.moves + 1 } },
+    ups = (event : Html.Event) : Void => { next { state | ups = state.ups + 1 } }
   }
 
   fun render : Html {

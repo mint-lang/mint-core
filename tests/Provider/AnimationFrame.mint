@@ -5,7 +5,7 @@ record Test.Provider.AnimationFrame {
 component Test.Provider.AnimationFrame {
   state : Test.Provider.AnimationFrame { frames = 0 }
 
-  use Provider.AnimationFrame { frames = \ => next { state | frames = state.frames + 1 } }
+  use Provider.AnimationFrame { frames = () : Void => { next { state | frames = state.frames + 1 } } }
 
   fun render : Html {
     <div>

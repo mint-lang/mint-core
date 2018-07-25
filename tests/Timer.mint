@@ -4,14 +4,16 @@ suite "Timer.timeout" {
       of("TEST")
       |> timeout(1)
       |> then(
-        \subject : String =>
+        (subject : String) : Promise(a, String) => {
           subject
           |> String.toLowerCase()
-          |> Promise.resolve())
+          |> Promise.resolve()
+        })
       |> then(
-        \subject : String =>
+        (subject : String) : Promise(a, Bool) => {
           subject == "test"
-          |> Promise.resolve())
+          |> Promise.resolve()
+        })
     }
   }
 }
@@ -20,16 +22,19 @@ suite "Timer.nextFrame" {
   test "resolves after the next frame" {
     with Test.Context {
       of("TEST")
-      |> then(\subject : String => Timer.nextFrame(subject))
       |> then(
-        \subject : String =>
+        (subject : String) : Promise(a, String) => { Timer.nextFrame(subject) })
+      |> then(
+        (subject : String) : Promise(a, String) => {
           subject
           |> String.toLowerCase()
-          |> Promise.resolve())
+          |> Promise.resolve()
+        })
       |> then(
-        \subject : String =>
+        (subject : String) : Promise(a, Bool) => {
           subject == "test"
-          |> Promise.resolve())
+          |> Promise.resolve()
+        })
     }
   }
 }

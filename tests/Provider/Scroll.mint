@@ -3,7 +3,7 @@ record Test.Provider.Scroll {
 }
 
 component Test.Provider.Scroll {
-  use Provider.Scroll { scrolls = \event : Html.Event => next { state | position = Window.scrollTop() } }
+  use Provider.Scroll { scrolls = (event : Html.Event) : Void => { next { state | position = Window.scrollTop() } } }
 
   state : Test.Provider.Scroll { position = 0 }
 

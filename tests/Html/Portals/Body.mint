@@ -7,11 +7,12 @@ suite "Html.Portals.Body" {
         </Html.Portals.Body>
         |> start()
         |> then(
-          \subject : Dom.Element =>
+          (subject : Dom.Element) : Promise(a, Bool) => {
             Dom.getElementBySelector("body > portal-body")
-            |> Maybe.map(\element : Dom.Element => true)
+            |> Maybe.map((element : Dom.Element) : Bool => { true })
             |> Maybe.withDefault(false)
-            |> Promise.resolve())
+            |> Promise.resolve()
+          })
         |> assertEqual(true)
       }
     }
@@ -26,11 +27,12 @@ suite "Html.Portals.Body" {
         </Html.Portals.Body>
         |> start()
         |> then(
-          \subject : Dom.Element =>
+          (subject : Dom.Element) : Promise(a, Bool) => {
             Dom.getElementBySelector("body > portal-body2")
-            |> Maybe.map(\element : Dom.Element => true)
+            |> Maybe.map((element : Dom.Element) : Bool => { true })
             |> Maybe.withDefault(false)
-            |> Promise.resolve())
+            |> Promise.resolve()
+          })
         |> assertEqual(true)
       }
     }
