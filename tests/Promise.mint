@@ -1,15 +1,11 @@
-record Test.Promise {
-  result : String
-}
-
 component Test.Promise {
-  state : Test.Promise { result = "" }
+  state result : String = ""
 
   fun reject : Void {
     do {
       Promise.reject("rejected")
     } catch String => result {
-      next { state | result = result }
+      next { result = result }
     }
   }
 
@@ -18,14 +14,14 @@ component Test.Promise {
       result =
         Promise.resolve("resolved")
 
-      next { state | result = result }
+      next { result = result }
     }
   }
 
   fun render : Html {
     <div>
       <result>
-        <{ state.result }>
+        <{ result }>
       </result>
 
       <resolve onClick={(event : Html.Event) : Void => { resolve() }}/>

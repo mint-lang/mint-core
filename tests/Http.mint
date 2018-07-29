@@ -148,12 +148,6 @@ suite "Http.sendWithID" {
   }
 }
 
-record Test.Http {
-  status : Number,
-  error : String,
-  body : String
-}
-
 component Test.Http {
   property method : String = "GET"
   property timeout : Bool = false
@@ -161,11 +155,9 @@ component Test.Http {
   property abort : Bool = false
   property error : Bool = false
 
-  state : Test.Http {
-    status = 0,
-    error = "",
-    body = ""
-  }
+  state errorMessage : String = ""
+  state status : Number = 0
+  state body : String = ""
 
   fun componentDidMount : Void {
     do {
@@ -190,34 +182,34 @@ component Test.Http {
           })
           `)
 
-      next { state | status = response.status }
+      next { status = response.status }
     } catch Http.ErrorResponse => error {
       case (error.type) {
         Http.Error::NetworkError =>
           next
-            { state |
-              error = "network-error",
+            {
+              errorMessage = "network-error",
               status = error.status
             }
 
         Http.Error::BadUrl =>
           next
-            { state |
-              error = "bad-url",
+            {
+              errorMessage = "bad-url",
               status = error.status
             }
 
         Http.Error::Timeout =>
           next
-            { state |
-              error = "timeout",
+            {
+              errorMessage = "timeout",
               status = error.status
             }
 
         Http.Error::Aborted =>
           next
-            { state |
-              error = "aborted",
+            {
+              errorMessage = "aborted",
               status = error.status
             }
 
@@ -229,15 +221,15 @@ component Test.Http {
   fun render : Html {
     <div>
       <error>
-        <{ state.error }>
+        <{ errorMessage }>
       </error>
 
       <content>
-        <{ state.body }>
+        <{ body }>
       </content>
 
       <status>
-        <{ Number.toString(state.status) }>
+        <{ Number.toString(status) }>
       </status>
     </div>
   }
