@@ -19,7 +19,7 @@ provider Provider.AnimationFrame : Provider.AnimationFrame.Subscription {
     `
     (() => {
       this.detach()
-      this.id = this.frame()
+      this.frame()
     })()
     `
   }
