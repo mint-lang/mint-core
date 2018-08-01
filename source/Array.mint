@@ -94,7 +94,7 @@ module Array {
   Creates a new array with the results of calling a provided
   function on every element in the given array.
 
-    Array.map(\number : Number => number + 1, [1, 2, 3]) == [2, 3, 4]
+    Array.map((number : Number) : Number => { number + 1 }, [1, 2, 3]) == [2, 3, 4]
   */
   fun map (func : Function(a, b), array : Array(a)) : Array(b) {
     `array.map(func)`
@@ -106,7 +106,7 @@ module Array {
   the element.
 
     Array.mapWithIndex(
-      \index : Number, number : Number => number + index, [1, 2, 3]) == [2, 4, 6]
+      (index : Number, number : Number) : Number => { number + index }, [1, 2, 3]) == [2, 4, 6]
   */
   fun mapWithIndex (func : Function(a, Number, b), array : Array(a)) : Array(b) {
     `array.map(func)`
@@ -115,7 +115,7 @@ module Array {
   /*
   Returns all elements that matches the predicate function.
 
-    Array.select(\number : Number => number % 2 == 0, [1, 2, 3, 4]) == [2, 4]
+    Array.select((number : Number) : Bool => { number % 2 == 0 }, [1, 2, 3, 4]) == [2, 4]
   */
   fun select (func : Function(a, Bool), array : Array(a)) : Array(a) {
     `array.filter(func)`
@@ -124,7 +124,7 @@ module Array {
   /*
   Returns all elements that does not matches the predicate function.
 
-    Array.reject(\number : Number => number % 2 == 0, [1, 2, 3, 4]) == [1, 3]
+    Array.reject((number : Number) : Bool => { number % 2 == 0 }, [1, 2, 3, 4]) == [1, 3]
   */
   fun reject (func : Function(a, Bool), array : Array(a)) : Array(a) {
     `array.filter((item) => !func(item))`
@@ -133,7 +133,7 @@ module Array {
   /*
   Finds the first element in the array that matches the predicate function.
 
-    Array.find(\number : Number => number % 2 == 0, [1, 2, 3, 4]) == Maybe.just(2)
+    Array.find((number : Number) : Bool => { number % 2 == 0 }, [1, 2, 3, 4]) == Maybe.just(2)
   */
   fun find (func : Function(a, Bool), array : Array(a)) : Maybe(a) {
     `
@@ -153,8 +153,8 @@ module Array {
   Returns `true` if any item in the array matches the prdicate function
   `false` otherwise.
 
-    Array.any(\number : Number => number % 2 == 0, [1, 2, 3, 4]) == true
-    Array.any(\number : Number => number % 2 == 0, [1, 3]) == false
+    Array.any((number : Number) : Bool => { number % 2 == 0 }, [1, 2, 3, 4]) == true
+    Array.any((number : Number) : Bool => { number % 2 == 0 }, [1, 3]) == false
   */
   fun any (func : Function(a, Bool), array : Array(a)) : Bool {
     `!!array.find(func)`
@@ -163,7 +163,7 @@ module Array {
   /*
   Returns a new sorted array using the given sorting function.
 
-    Array.sort(\a : Number, b : Number => a - b, [4, 1, 3, 2]) == [1, 2, 3, 4]
+    Array.sort((a : Number, b : Number) : Number => { a - b }, [4, 1, 3, 2]) == [1, 2, 3, 4]
   */
   fun sort (func : Function(a, a, Number), array : Array(a)) : Array(a) {
     `array.slice().sort(func)`
@@ -174,7 +174,7 @@ module Array {
   the sorting.
 
 
-    Array.sortBy(\number : Number => number, [4, 1, 3, 2]) == [1, 2, 3, 4]
+    Array.sortBy((number : Number) : Number => { number }, [4, 1, 3, 2]) == [1, 2, 3, 4]
   */
   fun sortBy (func : Function(a, b), array : Array(a)) : Array(a) {
     `
@@ -261,7 +261,7 @@ module Array {
     Array.delete("a", ["a", "b", "c"]) == ["b", "c"]
   */
   fun delete (what : a, array : Array(a)) : Array(a) {
-    reject(\item : a => item != what, array)
+    reject((item : a) : Bool => { item != what }, array)
   }
 
   /*
@@ -325,5 +325,18 @@ module Array {
   */
   fun do (array : Array(Void)) : Void {
     `null`
+  }
+
+  /*
+  Applies the given function against an accumulator and each element in the
+  array (from left to right) to reduce it to a single value.
+
+    Array.reduce(
+      0,
+      (memo : Number, item : Number) : Number => { memo + item },
+      [1, 2, 3]) == 6
+  */
+  fun reduce (initial : a, method : Function(b, a, b), array : Array(a)) : b {
+    `array.reduce(method, initial)`
   }
 }

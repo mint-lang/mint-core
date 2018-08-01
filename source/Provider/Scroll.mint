@@ -9,9 +9,9 @@ provider Provider.Scroll : Provider.Scroll.Subscription {
   fun scrolls (event : Html.Event) : Void {
     subscriptions
     |> Array.map(
-      \subscription : Provider.Scroll.Subscription => subscription.scrolls)
+      (subscription : Provider.Scroll.Subscription) : Function(Html.Event, Void) => { subscription.scrolls })
     |> Array.map(
-      \subscription : Function(Html.Event, Void) => subscription(event))
+      (method : Function(Html.Event, Void)) : Void => { method(event) })
     |> Array.do()
   }
 

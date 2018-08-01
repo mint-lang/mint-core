@@ -19,6 +19,90 @@ module Test.Html {
     `
   }
 
+  fun find (selector : String, context : Test.Context(Dom.Element)) : Test.Context(Dom.Element) {
+    `
+    context.step((element) => {
+      let subject = element.querySelector(selector)
+
+      if (subject) {
+        return subject
+      } else {
+        throw \`Could not find element with selector: ${selector}\`
+      }
+    })
+    `
+  }
+
+  fun findGlobally (selector : String, context : Test.Context(Dom.Element)) : Test.Context(Dom.Element) {
+    `
+    context.step((element) => {
+      let subject = document.querySelector(selector)
+
+      if (subject) {
+        return subject
+      } else {
+        throw \`Could not find element with selector: ${selector}\`
+      }
+    })
+    `
+  }
+
+  fun assertTop (top : Number, context : Test.Context(Dom.Element)) : Test.Context(Dom.Element) {
+    Test.Context.assertOf(
+      top,
+      (element : Dom.Element) : Number => {
+        try {
+          dimensions =
+            Dom.getDimensions(element)
+
+          dimensions.top
+        }
+      },
+      context)
+  }
+
+  fun assertLeft (left : Number, context : Test.Context(Dom.Element)) : Test.Context(Dom.Element) {
+    Test.Context.assertOf(
+      left,
+      (element : Dom.Element) : Number => {
+        try {
+          dimensions =
+            Dom.getDimensions(element)
+
+          dimensions.left
+        }
+      },
+      context)
+  }
+
+  fun assertHeight (height : Number, context : Test.Context(Dom.Element)) : Test.Context(Dom.Element) {
+    Test.Context.assertOf(
+      height,
+      (element : Dom.Element) : Number => {
+        try {
+          dimensions =
+            Dom.getDimensions(element)
+
+          dimensions.height
+        }
+      },
+      context)
+  }
+
+  fun assertWidth (width : Number, context : Test.Context(Dom.Element)) : Test.Context(Dom.Element) {
+    Test.Context.assertOf(
+      width,
+      (element : Dom.Element) : Number => {
+        try {
+          dimensions =
+            Dom.getDimensions(element)
+
+          dimensions.width
+        }
+      },
+      context)
+  }
+
   /* Triggers a click event on the element that matches the given selector. */
   fun triggerClick (selector : String, context : Test.Context(Dom.Element)) : Test.Context(Dom.Element) {
     `
@@ -113,7 +197,7 @@ module Test.Html {
         if (actual == value) {
           return element
         } else {
-          throw \`Style did not match\`
+          throw \`Style did not match expected "${value}" got "${actual}"\`
         }
       } else {
         throw \`Could not find element with selector: ${selector}\`

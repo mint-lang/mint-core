@@ -1,15 +1,11 @@
-record Test.Provider.Tick {
-  counter : Number
-}
-
 component Test.Provider.Tick {
-  state : Test.Provider.Tick { counter = 0 }
+  state counter : Number = 0
 
-  use Provider.Tick { ticks = \ => next { state | counter = state.counter + 1 } }
+  use Provider.Tick { ticks = () : Void => { next { counter = counter + 1 } } }
 
   fun render : Html {
     <div>
-      <{ Number.toString(state.counter) }>
+      <{ Number.toString(counter) }>
     </div>
   }
 }

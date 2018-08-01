@@ -1,11 +1,7 @@
-record Test.Provider.Scroll {
-  position : Number
-}
-
 component Test.Provider.Scroll {
-  use Provider.Scroll { scrolls = \event : Html.Event => next { state | position = Window.scrollTop() } }
+  use Provider.Scroll { scrolls = (event : Html.Event) : Void => { next { position = Window.scrollTop() } } }
 
-  state : Test.Provider.Scroll { position = 0 }
+  state position : Number = 0
 
   style base {
     height: 3000px;
@@ -14,7 +10,7 @@ component Test.Provider.Scroll {
 
   fun render : Html {
     <div::base>
-      <{ Number.toString(state.position) }>
+      <{ Number.toString(position) }>
     </div>
   }
 }

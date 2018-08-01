@@ -36,7 +36,7 @@ module Test.Context {
   /* Adds a timeout to the text using the given duration (in milliseconds). */
   fun timeout (duration : Number, context : Test.Context(a)) : Test.Context(a) {
     then(
-      \subject : a => Timer.timeout(duration, subject),
+      (subject : a) : Promise(Never, Test.Context(a)) => { Timer.timeout(duration, subject) },
       context)
   }
 
@@ -62,5 +62,25 @@ module Test.Context {
       }
     })
     `
+  }
+
+  fun assertOf (value : b, method : Function(a, b), context : Test.Context(a)) : Test.Context(a) {
+    `
+    context.step((item) => {
+      let actual = method(item)
+
+      if (actual == value) {
+        return item
+      } else {
+        throw \`Assertion failed ${actual} === ${value}\`
+      }
+    })
+    `
+  }
+
+  fun map (method : Function(a, b), context : Test.Context(a)) : Test.Context(b) {
+    then(
+      (item : a) : Promise(Never, Test.Context(a)) => { Promise.resolve(method(item)) },
+      context)
   }
 }

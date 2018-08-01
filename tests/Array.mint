@@ -166,7 +166,7 @@ suite "Array.mapWithIndex" {
       "B"
     ]
     |> Array.mapWithIndex(
-      \item : String, index : Number => item + Number.toString(index))
+      (item : String, index : Number) : String => { item + Number.toString(index) })
     |> Array.first()
     |> Maybe.withDefault("")) == "A0"
   }
@@ -210,7 +210,7 @@ suite "Array.find" {
       5,
       6
     ]
-    |> Array.find(\number : Number => number == 3)
+    |> Array.find((number : Number) : Bool => { number == 3 })
     |> Maybe.withDefault(0)) == 3
   }
 
@@ -219,7 +219,7 @@ suite "Array.find" {
       true,
       false
     ]
-    |> Array.find(\item : Bool => item == false)
+    |> Array.find((item : Bool) : Bool => { item == false })
     |> Maybe.withDefault(true)) == false
   }
 }
@@ -235,7 +235,7 @@ suite "Array.any" {
       5,
       6
     ]
-    |> Array.any(\number : Number => number == 3)
+    |> Array.any((number : Number) : Bool => { number == 3 })
   }
 
   test "returns false if no item matches the predicate" {
@@ -247,7 +247,7 @@ suite "Array.any" {
       5,
       6
     ]
-    |> Array.any(\number : Number => number == 9)) == false
+    |> Array.any((number : Number) : Bool => { number == 9 })) == false
   }
 }
 
@@ -258,7 +258,7 @@ suite "Array.sort" {
       2,
       1
     ]
-    |> Array.sort(\a : Number, b : Number => a - b)
+    |> Array.sort((a : Number, b : Number) : Number => { a - b })
     |> Array.map(Number.toString)
     |> String.join("")) == "123"
   }
@@ -271,7 +271,7 @@ suite "Array.sortBy" {
       2,
       1
     ]
-    |> Array.sortBy(\a : Number => a)
+    |> Array.sortBy((a : Number) : Number => { a })
     |> Array.map(Number.toString)
     |> String.join("")) == "123"
   }
@@ -384,5 +384,18 @@ suite "Array.at" {
       2,
       3
     ]) == Maybe.just(3)
+  }
+}
+
+suite "Array.reduce" {
+  test "it reduces an array to a single value" {
+    Array.reduce(
+      0,
+      (memo : Number, item : Number) : Number => { memo + item },
+      [
+        1,
+        2,
+        3
+      ]) == 6
   }
 }

@@ -9,8 +9,8 @@ provider Provider.AnimationFrame : Provider.AnimationFrame.Subscription {
   fun update : Void {
     subscriptions
     |> Array.map(
-      \item : Provider.AnimationFrame.Subscription => item.frames)
-    |> Array.map(\func : Function(Void) => func())
+      (item : Provider.AnimationFrame.Subscription) : Function(Void) => { item.frames })
+    |> Array.map((func : Function(Void)) : Void => { func() })
     |> Array.do()
   }
 
@@ -19,7 +19,7 @@ provider Provider.AnimationFrame : Provider.AnimationFrame.Subscription {
     `
     (() => {
       this.detach()
-      this.id = this.frame()
+      this.frame()
     })()
     `
   }

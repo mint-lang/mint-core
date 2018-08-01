@@ -8,8 +8,9 @@ provider Provider.Tick : Provider.Tick.Subscription {
   /* Updates the subscribers. */
   fun update : Void {
     subscriptions
-    |> Array.map(\item : Provider.Tick.Subscription => item.ticks)
-    |> Array.map(\func : Function(Void) => func())
+    |> Array.map(
+      (item : Provider.Tick.Subscription) : Function(Void) => { item.ticks })
+    |> Array.map((func : Function(Void)) : Void => { func() })
     |> Array.do()
   }
 

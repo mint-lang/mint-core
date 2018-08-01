@@ -1,34 +1,26 @@
-record Test.Provider.Mouse {
-  clicks : Number,
-  moves : Number,
-  ups : Number
-}
-
 component Test.Provider.Mouse {
-  state : Test.Provider.Mouse {
-    clicks = 0,
-    moves = 0,
-    ups = 0
-  }
+  state clicks : Number = 0
+  state moves : Number = 0
+  state ups : Number = 0
 
   use Provider.Mouse {
-    clicks = \event : Html.Event => next { state | clicks = state.clicks + 1 },
-    moves = \event : Html.Event => next { state | moves = state.moves + 1 },
-    ups = \event : Html.Event => next { state | ups = state.ups + 1 }
+    clicks = (event : Html.Event) : Void => { next { clicks = clicks + 1 } },
+    moves = (event : Html.Event) : Void => { next { moves = moves + 1 } },
+    ups = (event : Html.Event) : Void => { next { ups = ups + 1 } }
   }
 
   fun render : Html {
     <div>
       <clicks>
-        <{ Number.toString(state.clicks) }>
+        <{ Number.toString(clicks) }>
       </clicks>
 
       <moves>
-        <{ Number.toString(state.moves) }>
+        <{ Number.toString(moves) }>
       </moves>
 
       <ups>
-        <{ Number.toString(state.ups) }>
+        <{ Number.toString(ups) }>
       </ups>
     </div>
   }
