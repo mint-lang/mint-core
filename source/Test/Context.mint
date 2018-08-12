@@ -36,7 +36,7 @@ module Test.Context {
   /* Adds a timeout to the text using the given duration (in milliseconds). */
   fun timeout (duration : Number, context : Test.Context(a)) : Test.Context(a) {
     then(
-      (subject : a) : Promise(Never, Test.Context(a)) => { Timer.timeout(duration, subject) },
+      (subject : a) : Promise(Never, a) => { Timer.timeout(duration, subject) },
       context)
   }
 
