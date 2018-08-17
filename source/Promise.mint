@@ -1,7 +1,7 @@
 /* Utility functions for working with promises. */
 module Promise {
   /* Creates an already rejected `Promise` */
-  fun reject (input : a) : Promise(a, Never) {
+  fun reject (input : a) : Promise(a, b) {
     `Promise.reject(input)`
   }
 

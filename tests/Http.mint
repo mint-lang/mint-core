@@ -159,8 +159,8 @@ component Test.Http {
   state status : Number = 0
   state body : String = ""
 
-  fun componentDidMount : Void {
-    do {
+  fun componentDidMount : Promise(Never, Void) {
+    sequence {
       response =
         Http.empty()
         |> Http.url(url)
@@ -212,8 +212,6 @@ component Test.Http {
               errorMessage = "aborted",
               status = error.status
             }
-
-        => void
       }
     }
   }
