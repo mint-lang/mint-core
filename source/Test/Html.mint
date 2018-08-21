@@ -19,7 +19,10 @@ module Test.Html {
     `
   }
 
-  fun find (selector : String, context : Test.Context(Dom.Element)) : Test.Context(Dom.Element) {
+  fun find (
+    selector : String,
+    context : Test.Context(Dom.Element)
+  ) : Test.Context(Dom.Element) {
     `
     context.step((element) => {
       let subject = element.querySelector(selector)
@@ -33,7 +36,10 @@ module Test.Html {
     `
   }
 
-  fun findGlobally (selector : String, context : Test.Context(Dom.Element)) : Test.Context(Dom.Element) {
+  fun findGlobally (
+    selector : String,
+    context : Test.Context(Dom.Element)
+  ) : Test.Context(Dom.Element) {
     `
     context.step((element) => {
       let subject = document.querySelector(selector)
@@ -104,7 +110,10 @@ module Test.Html {
   }
 
   /* Triggers a click event on the element that matches the given selector. */
-  fun triggerClick (selector : String, context : Test.Context(Dom.Element)) : Test.Context(Dom.Element) {
+  fun triggerClick (
+    selector : String,
+    context : Test.Context(Dom.Element)
+  ) : Test.Context(Dom.Element) {
     `
     context.step((element) => {
       element.querySelector(selector).click()
@@ -114,7 +123,10 @@ module Test.Html {
   }
 
   /* Triggers a mouse down event on the element that matches the given selector. */
-  fun triggerMouseDown (selector : String, context : Test.Context(Dom.Element)) : Test.Context(Dom.Element) {
+  fun triggerMouseDown (
+    selector : String,
+    context : Test.Context(Dom.Element)
+  ) : Test.Context(Dom.Element) {
     `
     context.step((element) => {
       let event = document.createEvent ('MouseEvents')
@@ -126,7 +138,10 @@ module Test.Html {
   }
 
   /* Triggers a mouse move event on the element that matches the given selector. */
-  fun triggerMouseMove (selector : String, context : Test.Context(Dom.Element)) : Test.Context(Dom.Element) {
+  fun triggerMouseMove (
+    selector : String,
+    context : Test.Context(Dom.Element)
+  ) : Test.Context(Dom.Element) {
     `
     context.step((element) => {
       let event = document.createEvent ('MouseEvents')
@@ -138,7 +153,10 @@ module Test.Html {
   }
 
   /* Triggers a mouse up event on the element that matches the given selector. */
-  fun triggerMouseUp (selector : String, context : Test.Context(Dom.Element)) : Test.Context(Dom.Element) {
+  fun triggerMouseUp (
+    selector : String,
+    context : Test.Context(Dom.Element)
+  ) : Test.Context(Dom.Element) {
     `
     context.step((element) => {
       let event = document.createEvent ('MouseEvents')
@@ -150,7 +168,11 @@ module Test.Html {
   }
 
   /* Asserts the text of the element that matches the given selector. */
-  fun assertTextOf (selector : String, value : String, context : Test.Context(Dom.Element)) : Test.Context(Dom.Element) {
+  fun assertTextOf (
+    selector : String,
+    value : String,
+    context : Test.Context(Dom.Element)
+  ) : Test.Context(Dom.Element) {
     `
     context.step((element) => {
       let text = "";
@@ -171,7 +193,10 @@ module Test.Html {
   }
 
   /* Asserts that there is an element that matches the given selector. */
-  fun assertElementExists (selector : String, context : Test.Context(Dom.Element)) : Test.Context(Dom.Element) {
+  fun assertElementExists (
+    selector : String,
+    context : Test.Context(Dom.Element)
+  ) : Test.Context(Dom.Element) {
     `
     context.step((element) => {
       let subject = element.querySelector(selector)
@@ -186,7 +211,12 @@ module Test.Html {
   }
 
   /* Asserts the value of a css property on the element that matches the given selector. */
-  fun assertCSSOf (selector : String, property : String, value : String, context : Test.Context(Dom.Element)) : Test.Context(Dom.Element) {
+  fun assertCSSOf (
+    selector : String,
+    property : String,
+    value : String,
+    context : Test.Context(Dom.Element)
+  ) : Test.Context(Dom.Element) {
     `
     context.step((element) => {
       let subject = element.querySelector(selector)

@@ -102,7 +102,11 @@ module Regexp {
       "a,b,c,d",
       \match : Regexp.Match => match.match + "1")) == "a1,b1,c1,d1"
   */
-  fun replace (input : String, replacer : Function(Regexp.Match, String), regexp : Regexp) : String {
+  fun replace (
+    input : String,
+    replacer : Function(Regexp.Match, String),
+    regexp : Regexp
+  ) : String {
     `
     (() => {
       let index = 0
@@ -120,7 +124,7 @@ module Regexp {
         index += 1
 
         return replacer({
-          submatches, submatches,
+          submatches: submatches,
           index: index,
           match: match
         })

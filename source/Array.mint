@@ -323,7 +323,7 @@ module Array {
       }
     ])
   */
-  fun do (array : Array(Void)) : Void {
+  fun do (array : Array(a)) : a {
     `null`
   }
 
@@ -336,7 +336,11 @@ module Array {
       (memo : Number, item : Number) : Number => { memo + item },
       [1, 2, 3]) == 6
   */
-  fun reduce (initial : a, method : Function(b, a, b), array : Array(a)) : b {
+  fun reduce (
+    initial : a,
+    method : Function(b, a, b),
+    array : Array(a)
+  ) : b {
     `array.reduce(method, initial)`
   }
 }
