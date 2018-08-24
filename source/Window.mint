@@ -1,11 +1,11 @@
 module Window {
   /* Navigates to the given URL. */
-  fun navigate (url : String) : Void {
+  fun navigate (url : String) : Promise(Never, Void) {
     `_navigate(url)`
   }
 
   /* Sets the URL of the window without navigating to it. */
-  fun setUrl (url : String) : Void {
+  fun setUrl (url : String) : Promise(Never, Void) {
     `_navigate(url, false)`
   }
 
@@ -15,7 +15,7 @@ module Window {
   }
 
   /* Sets the windows title. */
-  fun setTitle (title : String) : Void {
+  fun setTitle (title : String) : Promise(Never, Void) {
     `document.title = title`
   }
 
