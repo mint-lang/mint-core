@@ -312,6 +312,15 @@ module Array {
   }
 
   /*
+  Appends the items of the first array the second.
+
+    Array.concat([1, 2, 3], [4, 5, 6])
+  */
+  fun concat (array1 : Array(a), array2 : Array(a)) : Array(a) {
+    `array2.concat(array1)`
+  }
+
+  /*
   Collapses an array of voids into a single void.
 
     Array.do([

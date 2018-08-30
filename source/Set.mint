@@ -7,6 +7,10 @@ module Set {
     `Array.from(set)`
   }
 
+  fun fromArray (array : Array(a)) : Set(a) {
+    `new Set(array)`
+  }
+
   fun has (value : a, set : Set(a)) : Bool {
     `set.has(value)`
   }
