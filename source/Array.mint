@@ -321,22 +321,6 @@ module Array {
   }
 
   /*
-  Collapses an array of voids into a single void.
-
-    Array.do([
-      do {
-        Debug.log("a")
-      },
-      do {
-        Debug.log("b")
-      }
-    ])
-  */
-  fun do (array : Array(a)) : a {
-    `null`
-  }
-
-  /*
   Applies the given function against an accumulator and each element in the
   array (from left to right) to reduce it to a single value.
 

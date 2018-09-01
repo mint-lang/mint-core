@@ -23,7 +23,6 @@ provider Provider.Mouse : Provider.Mouse.Subscription {
       (subcription : Provider.Mouse.Subscription) : Function(Html.Event, a) => { subcription.clicks })
     |> Array.map(
       (func : Function(Html.Event, a)) : a => { func(event) })
-    |> Array.do()
   }
 
   /* Calls the `ups` function on the subscribers with the given event. */
@@ -33,7 +32,6 @@ provider Provider.Mouse : Provider.Mouse.Subscription {
       (subcription : Provider.Mouse.Subscription) : Function(Html.Event, a) => { subcription.ups })
     |> Array.map(
       (func : Function(Html.Event, a)) : a => { func(event) })
-    |> Array.do()
   }
 
   /* Attaches the provider. */

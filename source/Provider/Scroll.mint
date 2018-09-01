@@ -12,7 +12,6 @@ provider Provider.Scroll : Provider.Scroll.Subscription {
       (subscription : Provider.Scroll.Subscription) : Function(Html.Event, a) => { subscription.scrolls })
     |> Array.map(
       (method : Function(Html.Event, a)) : a => { method(event) })
-    |> Array.do()
   }
 
   /* Attaches the provider. */
