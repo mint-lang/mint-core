@@ -6,8 +6,15 @@ module Map {
   fun set (key : x, value : z, map : Map(x, z)) : Map(x, z) {
     `
     (() => {
-      map.set(key, value)
-      return map
+      const newMap = new Map()
+
+      for (let item of map1) {
+        newMap.set(item[0], item[1])
+      }
+
+      newMap.set(key, value)
+
+      return newMap
     })()
     `
   }
@@ -36,6 +43,7 @@ module Map {
       for (let item of map2) {
         map.set(item[0], item[1])
       }
+
       return map
     })()
     `
