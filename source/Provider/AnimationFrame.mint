@@ -1,17 +1,16 @@
 /* Represents a subscription for `Provider.AnimationFrame` */
 record Provider.AnimationFrame.Subscription {
-  frames : Function(Void)
+  frames : Function(a)
 }
 
 /* A provider for the `requestAnimationFrame` API. */
 provider Provider.AnimationFrame : Provider.AnimationFrame.Subscription {
   /* Updates the subscribers. */
-  fun update : Void {
+  fun update : Array(a) {
     subscriptions
     |> Array.map(
-      (item : Provider.AnimationFrame.Subscription) : Function(Void) => { item.frames })
-    |> Array.map((func : Function(Void)) : Void => { func() })
-    |> Array.do()
+      (item : Provider.AnimationFrame.Subscription) : Function(a) => { item.frames })
+    |> Array.map((func : Function(a)) : a => { func() })
   }
 
   /* Attaches the provider. */

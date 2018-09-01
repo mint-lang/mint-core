@@ -321,6 +321,15 @@ suite "Array.intersperse" {
   }
 }
 
+suite "Array.concat" {
+  test "appends the second array before the first" {
+    Array.concat(["a"], ["b"]) == [
+      "a",
+      "b"
+    ]
+  }
+}
+
 suite "Array.contains" {
   test "returns true if the array contains the exact item" {
     [

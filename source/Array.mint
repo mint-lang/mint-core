@@ -317,7 +317,7 @@ module Array {
     Array.concat([1, 2, 3], [4, 5, 6])
   */
   fun concat (array1 : Array(a), array2 : Array(a)) : Array(a) {
-    `array2.concat(array1)`
+    `array1.concat(array2)`
   }
 
   /*

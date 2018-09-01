@@ -149,11 +149,11 @@ suite "Http.sendWithID" {
 }
 
 component Test.Http {
+  property shouldError : Bool = false
   property method : String = "GET"
   property timeout : Bool = false
   property url : String = "/blah"
   property abort : Bool = false
-  property error : Bool = false
 
   state errorMessage : String = ""
   state status : Number = 0
@@ -169,7 +169,7 @@ component Test.Http {
         |> Promise.wrap(
           `
           (async (promise) => {
-            if (this.error) {
+            if (this.shouldError) {
               $Http._requests["test"].dispatchEvent(new CustomEvent("error"))
             } else if (this.timeout) {
               $Http._requests["test"].dispatchEvent(new CustomEvent("timeout"))
@@ -185,28 +185,28 @@ component Test.Http {
       next { status = response.status }
     } catch Http.ErrorResponse => error {
       case (error.type) {
-        Http.Error::NetworkError  =>
+        Http.Error::NetworkError =>
           next
             {
               errorMessage = "network-error",
               status = error.status
             }
 
-        Http.Error::BadUrl  =>
+        Http.Error::BadUrl =>
           next
             {
               errorMessage = "bad-url",
               status = error.status
             }
 
-        Http.Error::Timeout  =>
+        Http.Error::Timeout =>
           next
             {
               errorMessage = "timeout",
               status = error.status
             }
 
-        Http.Error::Aborted  =>
+        Http.Error::Aborted =>
           next
             {
               errorMessage = "aborted",
@@ -256,7 +256,7 @@ suite "Http.Error" {
 
   test "NetWorkError" {
     with Test.Html {
-      <Test.Http error={true}/>
+      <Test.Http shouldError={true}/>
       |> start()
       |> assertTextOf("error", "network-error")
       |> assertTextOf("status", "0")

@@ -3,18 +3,21 @@ component Test.Promise {
 
   fun reject : Promise(Never, Void) {
     sequence {
-      Promise.reject("rejected")
-    } catch String => result {
-      next { result = result }
+      rejected =
+        Promise.reject("rejected")
+
+      Promise.never()
+    } catch String => error {
+      next { result = error }
     }
   }
 
   fun resolve : Promise(Never, Void) {
     sequence {
-      result =
+      newResult =
         Promise.resolve("resolved")
 
-      next { result = result }
+      next { result = newResult }
     }
   }
 
