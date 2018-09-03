@@ -56,8 +56,7 @@ suite "Regexp.matches" {
         global = true,
         sticky = false
       })
-    |> Regexp.matches("a,b,c,d")
-    |> Debug.log()) == [
+    |> Regexp.matches("a,b,c,d")) == [
       {
         submatches = [],
         match = "a",

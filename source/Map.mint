@@ -8,7 +8,7 @@ module Map {
     (() => {
       const newMap = new Map()
 
-      for (let item of map1) {
+      for (let item of map) {
         newMap.set(item[0], item[1])
       }
 

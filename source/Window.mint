@@ -68,4 +68,17 @@ module Window {
   fun setScrollLeft (position : Number) : Void {
     `window.scrollTo(position, this.scrollLeft())`
   }
+
+  fun confirm (message : String) : Promise(String, Void) {
+    `
+    (() => {
+      let result = window.confirm(message)
+      if (result) {
+        return result;
+      } else {
+        return Promise.reject("User cancelled!")
+      }
+    })()
+    `
+  }
 }
