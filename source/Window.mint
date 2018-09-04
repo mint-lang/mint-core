@@ -69,10 +69,16 @@ module Window {
     `window.scrollTo(position, this.scrollLeft())`
   }
 
+  /*
+  Shows the default confirm popup of the browser with the given message.
+  This function returns a promise but blocks execution until the popup is
+  closed.
+  */
   fun confirm (message : String) : Promise(String, Void) {
     `
     (() => {
       let result = window.confirm(message)
+
       if (result) {
         return result;
       } else {

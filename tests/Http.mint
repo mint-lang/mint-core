@@ -159,6 +159,13 @@ component Test.Http {
   state status : Number = 0
   state body : String = ""
 
+  fun wrap (
+    method : Function(Promise(a, b), Void),
+    input : Promise(a, b)
+  ) : Promise(a, b) {
+    `method(input)`
+  }
+
   fun componentDidMount : Promise(Never, Void) {
     sequence {
       response =
@@ -166,7 +173,7 @@ component Test.Http {
         |> Http.url(url)
         |> Http.method(method)
         |> Http.sendWithID("test")
-        |> Promise.wrap(
+        |> wrap(
           `
           (async (promise) => {
             if (this.shouldError) {

@@ -1,5 +1,6 @@
 /* Utility functions for working with promises. */
 module Promise {
+  /* Returns a resolved promise with `Void` which never fails. */
   fun never : Promise(Never, Void) {
     resolve(void)
   }
@@ -12,13 +13,5 @@ module Promise {
   /* Creates an already resolved `Promise` */
   fun resolve (input : a) : Promise(Never, a) {
     `Promise.resolve(input)`
-  }
-
-  /* Wraps a `Promise` in a function. */
-  fun wrap (
-    method : Function(Promise(a, b), Void),
-    input : Promise(a, b)
-  ) : Promise(a, b) {
-    `method(input)`
   }
 }
