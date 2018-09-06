@@ -23,7 +23,6 @@ suite "Map equality" {
         Map.empty()
         |> Map.set("a", "b")
 
-      `console.log(map1, map2)`
       (map1 == map2)
     }
   }

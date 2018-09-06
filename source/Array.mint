@@ -314,10 +314,10 @@ module Array {
   /*
   Appends the items of the first array the second.
 
-    Array.concat([1, 2, 3], [4, 5, 6])
+    Array.concat([[1, 2, 3], [4, 5, 6]])
   */
-  fun concat (array1 : Array(a), array2 : Array(a)) : Array(a) {
-    `array1.concat(array2)`
+  fun concat (arrays : Array(Array(a))) : Array(a) {
+    `arrays.reduce((memo, item) => memo.concat(item), [])`
   }
 
   /*

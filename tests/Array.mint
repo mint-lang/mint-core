@@ -323,7 +323,10 @@ suite "Array.intersperse" {
 
 suite "Array.concat" {
   test "appends the second array before the first" {
-    Array.concat(["a"], ["b"]) == [
+    Array.concat([
+      ["a"],
+      ["b"]
+    ]) == [
       "a",
       "b"
     ]
