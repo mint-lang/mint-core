@@ -312,19 +312,21 @@ module Array {
   }
 
   /*
-  Collapses an array of voids into a single void.
+  Put two lists together:
 
-    Array.do([
-      do {
-        Debug.log("a")
-      },
-      do {
-        Debug.log("b")
-      }
-    ])
+    Array.Extra.append([1,1,2] [3,5,8]) == [1,1,2,3,5,8]
   */
-  fun do (array : Array(Void)) : Void {
-    `null`
+  fun append (array1 : Array(a), array2 : Array(a)) : Array(a) {
+    `[].concat(array1).concat(array2)`
+  }
+
+  /*
+  Concatenate a bunch of arrays into a single array:
+
+    Array.Extra.concat([[1,2],[3],[4,5]]) == [1,2,3,4,5]
+  */
+  fun concat (arrays : Array(Array(a))) : Array(a) {
+    reduce([], append, arrays)
   }
 
   /*
@@ -336,7 +338,78 @@ module Array {
       (memo : Number, item : Number) : Number => { memo + item },
       [1, 2, 3]) == 6
   */
-  fun reduce (initial : a, method : Function(b, a, b), array : Array(a)) : b {
+  fun reduce (
+    initial : b,
+    method : Function(b, a, b),
+    array : Array(a)
+  ) : b {
     `array.reduce(method, initial)`
+  }
+
+  /*
+  Reduce a list from the right.
+
+    [1,2,3,4,5]
+    |> Array.reduceRight(0, (acc : Number, n : Number) : Number => { acc + n}) == 15
+  */
+  fun reduceRight (
+    initial : b,
+    func : Function(b, a, b),
+    array : Array(a)
+  ) : b {
+    `array.reduceRight(func, initial)`
+  }
+
+  /*
+  Map over a nested array and then flatten.
+
+    [[1,2],[1,5]]
+    |> Array.flatMap((a : Array(Number) : Array(Number) => {
+      [Array.max(n)]
+    }) == [2,5]
+  */
+  fun flatMap (func : Function(a, Array(b)), array : Array(a)) : Array(b) {
+    concat(map(func, array))
+  }
+
+  /*
+  Take n number of items from the left.
+
+    Array.take(2, [1,2,3,4]) == [1,2]
+  */
+  fun take (number : Number, array : Array(a)) : Array(a) {
+    `array.slice(0, number)`
+  }
+
+  /*
+  Drop n number of items from the left.
+
+    Array.drop(2, [1,2,3,4]) == [3,4]
+  */
+  fun drop (number : Number, array : Array(a)) : Array(a) {
+    `array.slice(number)`
+  }
+
+  /*
+  Group an array into sub groups of specified length (all items are included so
+  the last group maybe shorter if after grouping there is a remainder)
+
+    Array.groupsOf(2, [1,2,3,4,5,6,7]) == [[1,2],[3,4],[5,6],[7]]
+  */
+  fun groupsOf (size : Number, array : Array(a)) : Array(Array(a)) {
+    `
+    (() => {
+      let groups = Math.ceil(array.length/size)
+      let lowerLimit = 0
+      let result = []
+
+      for (var i= 0; i < groups; i++) {
+        lowerLimit = i*size;
+        result.push(array.slice(lowerLimit, lowerLimit + size))
+      }
+
+      return result;
+    })()
+    `
   }
 }

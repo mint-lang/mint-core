@@ -86,6 +86,68 @@ module Regexp {
   }
 
   /*
+  Returns whether or not the given regular expression matches the given string.
+
+    (Regexp.create(",")
+    |> Regexp.match("asd,asd")) == true
+  */
+  fun match (input : String, regexp : Regexp) : Bool {
+    `regexp.test(input)`
+  }
+
+  /*
+  Returns all of the matches of the given regular expession agains the
+  given string.
+
+    (Regexp.createWithOptions(
+      "\\w",
+      {
+        caseInsensitive = true,
+        multiline = false,
+        unicode = false,
+        global = true,
+        sticky = false
+      })
+    |> Regexp.matces("a,b,c,d") == [
+      {
+        submatches = [],
+        match = "a",
+        index = 0
+      }
+    ]
+      \match : Regexp.Match => match.match + "1")) == "a1,b1,c1,d1"
+  */
+  fun matches (input : String, regexp : Regexp) : Array(Regexp.Match) {
+    `
+    (() => {
+      let results = []
+      let index = 0
+
+      input.replace(regexp, function() {
+        const args =
+          Array.from(arguments)
+
+        const match =
+          args.shift()
+
+        const submatches =
+          args.slice(0, -2)
+
+        index += 1
+
+        results.push(new Record({
+          submatches: submatches,
+          index: index,
+          match: match
+        }))
+      })
+
+      return results
+    })()
+    `
+  }
+
+  /*
   Replaces the matches of the given regular expression using the given function
   to caluclate the replacement string.
 
@@ -102,7 +164,11 @@ module Regexp {
       "a,b,c,d",
       \match : Regexp.Match => match.match + "1")) == "a1,b1,c1,d1"
   */
-  fun replace (input : String, replacer : Function(Regexp.Match, String), regexp : Regexp) : String {
+  fun replace (
+    input : String,
+    replacer : Function(Regexp.Match, String),
+    regexp : Regexp
+  ) : String {
     `
     (() => {
       let index = 0
@@ -120,7 +186,7 @@ module Regexp {
         index += 1
 
         return replacer({
-          submatches, submatches,
+          submatches: submatches,
           index: index,
           match: match
         })

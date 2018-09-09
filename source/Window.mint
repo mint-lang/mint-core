@@ -1,11 +1,11 @@
 module Window {
   /* Navigates to the given URL. */
-  fun navigate (url : String) : Void {
+  fun navigate (url : String) : Promise(Never, Void) {
     `_navigate(url)`
   }
 
   /* Sets the URL of the window without navigating to it. */
-  fun setUrl (url : String) : Void {
+  fun setUrl (url : String) : Promise(Never, Void) {
     `_navigate(url, false)`
   }
 
@@ -15,7 +15,7 @@ module Window {
   }
 
   /* Sets the windows title. */
-  fun setTitle (title : String) : Void {
+  fun setTitle (title : String) : Promise(Never, Void) {
     `document.title = title`
   }
 
@@ -60,12 +60,31 @@ module Window {
   }
 
   /* Sets the horizontal scroll position of the window in pixels. */
-  fun setScrollTop (position : Number) : Void {
+  fun setScrollTop (position : Number) : Promise(Never, Void) {
     `window.scrollTo(this.scrollTop(), position)`
   }
 
   /* Sets the vertical scroll position of the window in pixels. */
-  fun setScrollLeft (position : Number) : Void {
+  fun setScrollLeft (position : Number) : Promise(Never, Void) {
     `window.scrollTo(position, this.scrollLeft())`
+  }
+
+  /*
+  Shows the default confirm popup of the browser with the given message.
+  This function returns a promise but blocks execution until the popup is
+  closed.
+  */
+  fun confirm (message : String) : Promise(String, Void) {
+    `
+    (() => {
+      let result = window.confirm(message)
+
+      if (result) {
+        return result;
+      } else {
+        return Promise.reject("User cancelled!")
+      }
+    })()
+    `
   }
 }

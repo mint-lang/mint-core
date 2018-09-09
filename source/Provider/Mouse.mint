@@ -1,40 +1,37 @@
 /* Represents a subscription for `Provider.Mouse` */
 record Provider.Mouse.Subscription {
-  clicks : Function(Html.Event, Void),
-  moves : Function(Html.Event, Void),
-  ups : Function(Html.Event, Void)
+  clicks : Function(Html.Event, a),
+  moves : Function(Html.Event, a),
+  ups : Function(Html.Event, a)
 }
 
 /* A provider for global mouse events. */
 provider Provider.Mouse : Provider.Mouse.Subscription {
   /* Calls the `moves` function on the subscribers with the given event. */
-  fun moves (event : Html.Event) : Void {
+  fun moves (event : Html.Event) : Array(a) {
     subscriptions
     |> Array.map(
-      (subcription : Provider.Mouse.Subscription) : Function(Html.Event, Void) => { subcription.moves })
+      (subcription : Provider.Mouse.Subscription) : Function(Html.Event, a) => { subcription.moves })
     |> Array.map(
-      (func : Function(Html.Event, Void)) : Void => { func(event) })
-    |> Array.do()
+      (func : Function(Html.Event, a)) : a => { func(event) })
   }
 
   /* Calls the `clicks` function on the subscribers with the given event. */
-  fun clicks (event : Html.Event) : Void {
+  fun clicks (event : Html.Event) : Array(a) {
     subscriptions
     |> Array.map(
-      (subcription : Provider.Mouse.Subscription) : Function(Html.Event, Void) => { subcription.clicks })
+      (subcription : Provider.Mouse.Subscription) : Function(Html.Event, a) => { subcription.clicks })
     |> Array.map(
-      (func : Function(Html.Event, Void)) : Void => { func(event) })
-    |> Array.do()
+      (func : Function(Html.Event, a)) : a => { func(event) })
   }
 
   /* Calls the `ups` function on the subscribers with the given event. */
-  fun ups (event : Html.Event) : Void {
+  fun ups (event : Html.Event) : Array(a) {
     subscriptions
     |> Array.map(
-      (subcription : Provider.Mouse.Subscription) : Function(Html.Event, Void) => { subcription.ups })
+      (subcription : Provider.Mouse.Subscription) : Function(Html.Event, a) => { subcription.ups })
     |> Array.map(
-      (func : Function(Html.Event, Void)) : Void => { func(event) })
-    |> Array.do()
+      (func : Function(Html.Event, a)) : a => { func(event) })
   }
 
   /* Attaches the provider. */

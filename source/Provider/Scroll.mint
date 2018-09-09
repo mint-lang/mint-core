@@ -1,18 +1,17 @@
 /* Represents a subscription for `Provider.Scroll` */
 record Provider.Scroll.Subscription {
-  scrolls : Function(Html.Event, Void)
+  scrolls : Function(Html.Event, a)
 }
 
 /* A provider for global scroll events. */
 provider Provider.Scroll : Provider.Scroll.Subscription {
   /* Calls the `scrolls` function of the subscribers with the given value. */
-  fun scrolls (event : Html.Event) : Void {
+  fun scrolls (event : Html.Event) : Array(a) {
     subscriptions
     |> Array.map(
-      (subscription : Provider.Scroll.Subscription) : Function(Html.Event, Void) => { subscription.scrolls })
+      (subscription : Provider.Scroll.Subscription) : Function(Html.Event, a) => { subscription.scrolls })
     |> Array.map(
-      (method : Function(Html.Event, Void)) : Void => { method(event) })
-    |> Array.do()
+      (method : Function(Html.Event, a)) : a => { method(event) })
   }
 
   /* Attaches the provider. */

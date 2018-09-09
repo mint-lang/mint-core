@@ -321,6 +321,27 @@ suite "Array.intersperse" {
   }
 }
 
+suite "Array.concat" {
+  test "concatenates multiple arrays together" {
+    Array.concat([
+      ["a"],
+      ["b"]
+    ]) == [
+      "a",
+      "b"
+    ]
+  }
+}
+
+suite "Array.append" {
+  test "appends the second array before the first" {
+    Array.append(["a"], ["b"]) == [
+      "a",
+      "b"
+    ]
+  }
+}
+
 suite "Array.contains" {
   test "returns true if the array contains the exact item" {
     [
@@ -397,5 +418,135 @@ suite "Array.reduce" {
         2,
         3
       ]) == 6
+  }
+}
+
+suite "Array.reduceRight" {
+  test "it reduces an array to a single value from the right" {
+    Array.reduceRight(
+      0,
+      (memo : Number, item : Number) : Number => { memo + item },
+      [
+        1,
+        2,
+        3
+      ]) == 6
+  }
+}
+
+suite "Array.flatMap" {
+  test "maps over a nested array and flattens" {
+    try {
+      result =
+        [
+          [
+            3,
+            1
+          ],
+          [
+            2,
+            0
+          ],
+          [5]
+        ]
+        |> Array.flatMap(
+          (n : Array(Number)) : Array(Number) => { [Array.max(n)] })
+
+      (result == [
+        3,
+        2,
+        5
+      ])
+    }
+  }
+}
+
+suite "Array.take" {
+  test "take n number of items" {
+    try {
+      result =
+        [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ]
+        |> Array.take(2)
+
+      (result == [
+        1,
+        2
+      ])
+    }
+  }
+}
+
+suite "Array.drop" {
+  test "drop n number of items" {
+    try {
+      result =
+        [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ]
+        |> Array.drop(2)
+
+      (result == [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ])
+    }
+  }
+}
+
+suite "Array.groupsOf" {
+  test "group into items of specified size" {
+    try {
+      result =
+        [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ]
+        |> Array.groupsOf(2)
+
+      (result == [
+        [
+          1,
+          2
+        ],
+        [
+          3,
+          4
+        ],
+        [
+          5,
+          6
+        ],
+        [
+          7,
+          8
+        ]
+      ])
+    }
   }
 }

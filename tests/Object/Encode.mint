@@ -37,13 +37,13 @@ suite "Object.Encode.object" {
   test "encodes an array of fields to an object" {
     with Object.Encode {
       try {
-        field =
-          Object.Encode.field("test", `"a"`)
+        encodedField =
+          field("test", `"a"`)
 
-        object =
-          Object.Encode.object([field])
+        encodedObject =
+          object([encodedField])
 
-        `object.test == "a"`
+        `encodedObject.test == "a"`
       }
     }
   }

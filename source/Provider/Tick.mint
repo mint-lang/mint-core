@@ -1,17 +1,16 @@
 /* Represents a subscription for `Provider.Tick` */
 record Provider.Tick.Subscription {
-  ticks : Function(Void)
+  ticks : Function(a)
 }
 
 /* A provider for periodic updated (every 1 seconds). */
 provider Provider.Tick : Provider.Tick.Subscription {
   /* Updates the subscribers. */
-  fun update : Void {
+  fun update : Array(a) {
     subscriptions
     |> Array.map(
-      (item : Provider.Tick.Subscription) : Function(Void) => { item.ticks })
-    |> Array.map((func : Function(Void)) : Void => { func() })
-    |> Array.do()
+      (item : Provider.Tick.Subscription) : Function(a) => { item.ticks })
+    |> Array.map((func : Function(a)) : a => { func() })
   }
 
   /* Attaches the provider. */

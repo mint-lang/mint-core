@@ -142,6 +142,17 @@ module Http {
   }
 
   /*
+  Sets the body of the request to the given object encoded to JSON
+
+    Http.post("https://httpbin.org/anything")
+    |> Http.jsonBody(encode { name = "John" })
+    |> Http.send()
+  */
+  fun jsonBody (body : Object, request : Http.Request) : Http.Request {
+    { request | body = `JSON.stringify(body)` }
+  }
+
+  /*
   Sets the body of the request to the given string
 
     formData =

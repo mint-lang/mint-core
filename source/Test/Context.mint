@@ -25,7 +25,10 @@ module Test.Context {
       }
     }
   */
-  fun then (proc : Function(a, Promise(b, c)), context : Test.Context(a)) : Test.Context(c) {
+  fun then (
+    proc : Function(a, Promise(b, c)),
+    context : Test.Context(a)
+  ) : Test.Context(c) {
     `
     context.step((subject)=> {
       return proc(subject)
@@ -64,7 +67,11 @@ module Test.Context {
     `
   }
 
-  fun assertOf (value : b, method : Function(a, b), context : Test.Context(a)) : Test.Context(a) {
+  fun assertOf (
+    value : b,
+    method : Function(a, b),
+    context : Test.Context(a)
+  ) : Test.Context(a) {
     `
     context.step((item) => {
       let actual = method(item)

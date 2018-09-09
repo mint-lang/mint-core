@@ -1,20 +1,23 @@
 component Test.Promise {
   state result : String = ""
 
-  fun reject : Void {
-    do {
-      Promise.reject("rejected")
-    } catch String => result {
-      next { result = result }
+  fun reject : Promise(Never, Void) {
+    sequence {
+      rejected =
+        Promise.reject("rejected")
+
+      Promise.never()
+    } catch String => error {
+      next { result = error }
     }
   }
 
-  fun resolve : Void {
-    do {
-      result =
+  fun resolve : Promise(Never, Void) {
+    sequence {
+      newResult =
         Promise.resolve("resolved")
 
-      next { result = result }
+      next { result = newResult }
     }
   }
 
@@ -24,8 +27,8 @@ component Test.Promise {
         <{ result }>
       </result>
 
-      <resolve onClick={(event : Html.Event) : Void => { resolve() }}/>
-      <reject onClick={(event : Html.Event) : Void => { reject() }}/>
+      <resolve onClick={(event : Html.Event) : Promise(Never, Void) => { resolve() }}/>
+      <reject onClick={(event : Html.Event) : Promise(Never, Void) => { reject() }}/>
     </div>
   }
 }

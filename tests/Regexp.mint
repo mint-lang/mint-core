@@ -45,6 +45,54 @@ suite "Regexp.split" {
   }
 }
 
+suite "Regexp.matches" {
+  test "it returns matches" {
+    (Regexp.createWithOptions(
+      "\\w",
+      {
+        caseInsensitive = true,
+        multiline = false,
+        unicode = false,
+        global = true,
+        sticky = false
+      })
+    |> Regexp.matches("a,b,c,d")) == [
+      {
+        submatches = [],
+        match = "a",
+        index = 1
+      },
+      {
+        submatches = [],
+        match = "b",
+        index = 2
+      },
+      {
+        submatches = [],
+        match = "c",
+        index = 3
+      },
+      {
+        submatches = [],
+        match = "d",
+        index = 4
+      }
+    ]
+  }
+}
+
+suite "Regexp.match" {
+  test "it returns true if matches" {
+    (Regexp.create(",")
+    |> Regexp.match("asd,asd")) == true
+  }
+
+  test "it returns false if not matches" {
+    (Regexp.create(",")
+    |> Regexp.match("asdasd")) == false
+  }
+}
+
 suite "Regexp.replace" {
   test "replaces the matches with a replacer" {
     (Regexp.createWithOptions(
