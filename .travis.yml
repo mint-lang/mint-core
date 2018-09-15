@@ -1,0 +1,5 @@
+install:
+  - wget https://github.com/mint-lang/mint/releases/download/0.3.1/mint-0.3.1-linux -O mint -q
+  - chmod +x ./mint
+script:
+  - ./mint test -b firefox
