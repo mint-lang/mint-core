@@ -1,4 +1,6 @@
 # mint-core
+[![Build Status](https://travis-ci.org/mint-lang/mint-core.svg?branch=master)](https://travis-ci.org/mint-lang/mint-core)
+
 This is the source code for the standard library of the Mint programming
 language.
 
