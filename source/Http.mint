@@ -259,7 +259,7 @@ module Http {
         delete this._requests[uid]
 
         reject({
-          type: new $$Http_Error_BadUrl,
+          type: #{Http.Error::BadUrl},
           status: xhr.status,
           url: request.url
         })
@@ -273,7 +273,7 @@ module Http {
         delete this._requests[uid]
 
         reject({
-          type: new $$Http_Error_NetworkError,
+          type: #{Http.Error::NetworkError},
           status: xhr.status,
           url: request.url
         })
@@ -283,7 +283,7 @@ module Http {
         delete this._requests[uid]
 
         reject({
-          type: new $$Http_Error_Timeout,
+          type: #{Http.Error::Timeout},
           status: xhr.status,
           url: request.url
         })
@@ -299,7 +299,7 @@ module Http {
         delete this._requests[uid]
 
         reject({
-          type: new $$Http_Error_Aborted,
+          type: #{Http.Error::Aborted},
           status: xhr.status,
           url: request.url
         })
