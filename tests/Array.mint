@@ -550,3 +550,16 @@ suite "Array.groupsOf" {
     }
   }
 }
+
+suite "Array.delete" {
+  test "it removes the item" {
+    Array.delete("a", [
+      "a",
+      "b",
+      "c"
+    ]) == [
+      "b",
+      "c"
+    ]
+  }
+}

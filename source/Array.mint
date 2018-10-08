@@ -261,7 +261,7 @@ module Array {
     Array.delete("a", ["a", "b", "c"]) == ["b", "c"]
   */
   fun delete (what : a, array : Array(a)) : Array(a) {
-    reject((item : a) : Bool => { item != what }, array)
+    reject((item : a) : Bool => { item == what }, array)
   }
 
   /*
