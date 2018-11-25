@@ -22,7 +22,7 @@ record Http.ErrorResponse {
 
 /* Represents the possible failures of an HTTP request. */
 enum Http.Error {
-  /* The request cannot be loaded because of a network faliure */
+  /* The request cannot be loaded because of a network failure */
   NetworkError
 
   /* The client (browser) aborted the request */
@@ -89,7 +89,7 @@ module Http {
   }
 
   /*
-  Creates a request record where the method is DELETE
+  Creates a request record where the method is GET
 
     request =
       Http.get("https://httpbin.org/get")
@@ -103,7 +103,7 @@ module Http {
   }
 
   /*
-  Creates a request record where the method is DELETE
+  Creates a request record where the method is PUT
 
     request =
       Http.put("https://httpbin.org/put")
@@ -117,7 +117,7 @@ module Http {
   }
 
   /*
-  Creates a request record where the method is DELETE
+  Creates a request record where the method is POST
 
     request =
       Http.post("https://httpbin.org/post")

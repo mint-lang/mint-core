@@ -6,7 +6,7 @@ module Map {
   }
 
   /*
-  Sets the given value to the kiven key in the map.
+  Sets the given value to the given key in the map.
 
     Map.empty()
     |> Map.set("key", "value")
@@ -47,7 +47,7 @@ module Map {
   }
 
   /*
-  Merges two maps together where the second has the precendence.
+  Merges two maps together where the second has the precedence.
 
     a =
       Map.empty()
