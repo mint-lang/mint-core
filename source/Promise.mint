@@ -11,7 +11,7 @@ module Promise {
   }
 
   /* Creates an already resolved `Promise` */
-  fun resolve (input : a) : Promise(Never, a) {
+  fun resolve (input : a) : Promise(b, a) {
     `Promise.resolve(input)`
   }
 }

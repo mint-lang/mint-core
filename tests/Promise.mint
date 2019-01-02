@@ -18,6 +18,8 @@ component Test.Promise {
         Promise.resolve("resolved")
 
       next { result = newResult }
+    } catch {
+      next {  }
     }
   }
 
