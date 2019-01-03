@@ -102,6 +102,11 @@ module Math {
     `Number((a - (Math.floor(a / b) * b)).toPrecision(8))`
   }
 
+  /*
+  Truncates the given number to the giver amount.
+
+    Math.truncate(0.123456) == 0.12
+  */
   fun truncate (to : Number, value : Number) : Number {
     `Math.trunc(value * #{multiplier}) / #{multiplier}`
   } where {
