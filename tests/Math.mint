@@ -47,3 +47,41 @@ suite "Math.max" {
     Math.max(0, 1) == 1
   }
 }
+
+suite "Math.sqrt" {
+  test "returns the square root" {
+    Math.sqrt(4) == 2
+  }
+}
+
+suite "Math.pow" {
+  test "returns the exponent power" {
+    Math.pow(2, 2) == 4
+  }
+}
+
+suite "Math.clamp" {
+  test "it clamps to lower bound" {
+    Math.clamp(0, 10, -100) == 0
+  }
+
+  test "it clamps to upper bound" {
+    Math.clamp(0, 10, 100) == 10
+  }
+}
+
+suite "Math.fmod" {
+  test "it returns the float remainder of two numbers" {
+    Math.fmod(5.3, 2) == 1.3
+  }
+
+  test "it returns the float remainder of two numbers #2" {
+    Math.fmod(18.5, 4.2) == 1.7
+  }
+}
+
+suite "Math.truncate" {
+  test "it truncates number to given amount" {
+    Math.truncate(2, 0.123456) == 0.12
+  }
+}
