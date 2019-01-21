@@ -497,7 +497,7 @@ module Array {
         /* If the desired position is lower then zero put at the front. */
         result.unshift(result.splice(from, 1)[0])
       } else if (to >= result.length) {
-        /* If the desired position is lower then zero put at the front. */
+        /* If the desired position is bigger then length put at the back. */
         result.push(result.splice(from, 1)[0])
       } else {
         /* Else we just move. */
@@ -546,18 +546,10 @@ module Array {
         return array
       }
 
-      /* Copy the array. */
       const result = Array.from(array)
-
-      /* Save reference to item. */
       const saved = result[index1]
-
-      /* Update the first index. */
       result[index1] = result[index2]
-
-      /* Update the second item. */
       result[index2] = saved;
-
       return result
     })()
     `
