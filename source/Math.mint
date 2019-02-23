@@ -63,4 +63,58 @@ module Math {
   fun max (number1 : Number, number2 : Number) : Number {
     `Math.max(number1, number2)`
   }
+
+  /*
+  Returns the square root of the given number
+
+    Math.sqrt(4) == 2
+  */
+  fun sqrt (value : Number) : Number {
+    `Math.sqrt(value)`
+  }
+
+  /*
+  Returns the exponent power of the given number.
+
+    Math.pow(2, 2) == 4
+  */
+  fun pow (exponent : Number, value : Number) : Number {
+    `Math.pow(value, exponent)`
+  }
+
+  /*
+  Clamps the given number between the given upper and lower bounds.
+
+    Math.clamp(0, 10, 100) == 10
+    Math.clamp(0, 10, -100) == 0
+  */
+  fun clamp (lower : Number, upper : Number, value : Number) : Number {
+    Math.min(upper, Math.max(lower, value))
+  }
+
+  /*
+  Returns the floating-point remainder of two numbers.
+
+    Math.fmod(5.3, 2) == 1.3
+    Math.fmod(18.5, 4.2) == 1.7
+  */
+  fun fmod (a : Number, b : Number) : Number {
+    `Number((a - (Math.floor(a / b) * b)).toPrecision(8))`
+  }
+
+  /*
+  Truncates the given number to the giver amount.
+
+    Math.truncate(0.123456) == 0.12
+  */
+  fun truncate (to : Number, value : Number) : Number {
+    `Math.trunc(value * #{multiplier}) / #{multiplier}`
+  } where {
+    multiplier =
+      if (to == 0) {
+        1
+      } else {
+        to * 100
+      }
+  }
 }

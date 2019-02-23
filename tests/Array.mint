@@ -513,6 +513,42 @@ suite "Array.drop" {
   }
 }
 
+suite "Array.dropRight" {
+  test "drop n number of items from the right" {
+    Array.dropRight(2, [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+    ]) == [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ]
+  }
+
+  test "returns array if number of items is negative" {
+    Array.dropRight(-2, [
+      1,
+      2,
+      3,
+      4
+    ]) == [
+      1,
+      2,
+      3,
+      4
+    ]
+  }
+}
+
 suite "Array.groupsOf" {
   test "group into items of specified size" {
     try {
@@ -561,5 +597,325 @@ suite "Array.delete" {
       "b",
       "c"
     ]
+  }
+}
+
+suite "Array.unshift" {
+  test "it pushes a new item at the head of the array." {
+    Array.unshift(2, [
+      3,
+      4
+    ]) == [
+      2,
+      3,
+      4
+    ]
+  }
+}
+
+suite "Array.compact" {
+  test "it flattens an array of maybes" {
+    Array.compact([
+      Maybe.just("A"),
+      Maybe.nothing()
+    ]) == ["A"]
+  }
+}
+
+suite "Array.move" {
+  test "it returns the array as is if from equals to to" {
+    Array.move(0, 0, [
+      "A",
+      "B",
+      "C"
+    ]) == [
+      "A",
+      "B",
+      "C"
+    ]
+  }
+
+  test "it returns the array as is if from is negative" {
+    Array.move(-1, 0, [
+      "A",
+      "B",
+      "C"
+    ]) == [
+      "A",
+      "B",
+      "C"
+    ]
+  }
+
+  test "it returns the array as is if from is too big" {
+    Array.move(10, 0, [
+      "A",
+      "B",
+      "C"
+    ]) == [
+      "A",
+      "B",
+      "C"
+    ]
+  }
+
+  test "it moves the item to the front if to is negative" {
+    Array.move(2, -1, [
+      "A",
+      "B",
+      "C"
+    ]) == [
+      "C",
+      "A",
+      "B"
+    ]
+  }
+
+  test "it moves the item to the back if to is too big" {
+    Array.move(0, 10, [
+      "A",
+      "B",
+      "C"
+    ]) == [
+      "B",
+      "C",
+      "A"
+    ]
+  }
+
+  test "it moves the item #1" {
+    Array.move(1, 0, [
+      "A",
+      "B",
+      "C"
+    ]) == [
+      "B",
+      "A",
+      "C"
+    ]
+  }
+
+  test "it moves the item #2" {
+    Array.move(0, 2, [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E"
+    ]) == [
+      "B",
+      "C",
+      "A",
+      "D",
+      "E"
+    ]
+  }
+
+  test "it moves the item #2" {
+    Array.move(2, 0, [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E"
+    ]) == [
+      "C",
+      "A",
+      "B",
+      "D",
+      "E"
+    ]
+  }
+}
+
+suite "Array.insertAt" {
+  test "it inserts item at front if the position below zero" {
+    Array.insertAt("a", -10, [
+      "b",
+      "c"
+    ]) == [
+      "a",
+      "b",
+      "c"
+    ]
+  }
+
+  test "it inserts item at front if the position zero" {
+    Array.insertAt("a", 0, [
+      "b",
+      "c"
+    ]) == [
+      "a",
+      "b",
+      "c"
+    ]
+  }
+
+  test "it inserts item at the given position" {
+    Array.insertAt("a", 1, [
+      "b",
+      "c"
+    ]) == [
+      "b",
+      "a",
+      "c"
+    ]
+  }
+
+  test "it inserts item at the given position2" {
+    Array.insertAt("a", 2, [
+      "b",
+      "c"
+    ]) == [
+      "b",
+      "c",
+      "a"
+    ]
+  }
+
+  test "it inserts item at back if the position is greater then " \
+  "the length" {
+    Array.insertAt("a", 10, [
+      "b",
+      "c"
+    ]) == [
+      "b",
+      "c",
+      "a"
+    ]
+  }
+}
+
+suite "Array.deleteAt" {
+  test "it deletes the item at the given index" {
+    Array.deleteAt(0, [
+      "a",
+      "b",
+      "c"
+    ]) == [
+      "b",
+      "c"
+    ]
+  }
+
+  test "it returns array if the index is negative" {
+    Array.deleteAt(-1, [
+      "a",
+      "b",
+      "c"
+    ]) == [
+      "a",
+      "b",
+      "c"
+    ]
+  }
+
+  test "it returns array if the index is bigger then length" {
+    Array.deleteAt(10, [
+      "a",
+      "b",
+      "c"
+    ]) == [
+      "a",
+      "b",
+      "c"
+    ]
+  }
+}
+
+suite "Array.swap" {
+  test "it swaps items" {
+    Array.swap(0, 1, [
+      "a",
+      "b"
+    ]) == [
+      "b",
+      "a"
+    ]
+  }
+
+  test "it returns array if index is negative #1" {
+    Array.swap(-1, 1, [
+      "a",
+      "b"
+    ]) == [
+      "a",
+      "b"
+    ]
+  }
+
+  test "it returns array if index is negative #2" {
+    Array.swap(0, -1, [
+      "a",
+      "b"
+    ]) == [
+      "a",
+      "b"
+    ]
+  }
+
+  test "it returns array if index is bigger then the length #1" {
+    Array.swap(2, 0, [
+      "a",
+      "b"
+    ]) == [
+      "a",
+      "b"
+    ]
+  }
+
+  test "it returns array if index is bigger then the length #2" {
+    Array.swap(0, 2, [
+      "a",
+      "b"
+    ]) == [
+      "a",
+      "b"
+    ]
+  }
+}
+
+suite "Array.updateAt" {
+  test "it updates the item at the given index" {
+    Array.updateAt(
+      2,
+      (number : Number) : Number => { number + 2 },
+      [
+        0,
+        1,
+        2
+      ]) == [
+      0,
+      1,
+      4
+    ]
+  }
+}
+
+suite "Array.setAt" {
+  test "it sets the item at the given index" {
+    Array.setAt(2, 5, [
+      1,
+      2,
+      3
+    ]) == [
+      1,
+      2,
+      5
+    ]
+  }
+}
+
+suite "Array.indexOf" {
+  test "it returns the index of the item" {
+    Array.indexOf("a", [
+      "a",
+      "b",
+      "c"
+    ]) == 0
+  }
+
+  test "it returns the index of an enum" {
+    Array.indexOf(Http.Error::Aborted, [Http.Error::Aborted]) == 0
   }
 }

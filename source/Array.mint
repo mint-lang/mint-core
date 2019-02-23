@@ -391,6 +391,20 @@ module Array {
   }
 
   /*
+  Drop n number of items from the right.
+
+    Array.drop(2, [1,2,3,4]) == [1,2]
+  */
+  fun dropRight (number : Number, array : Array(a)) : Array(a) {
+    `
+    (() => {
+      if (number < 0) { return array }
+      return array.slice(0, -number)
+    })()
+    `
+  }
+
+  /*
   Group an array into sub groups of specified length (all items are included so
   the last group maybe shorter if after grouping there is a remainder)
 
@@ -409,6 +423,206 @@ module Array {
       }
 
       return result;
+    })()
+    `
+  }
+
+  /*
+  Pushes a new item at the head of the array.
+
+    Array.unshift(2, [3,4]) == [2,3,4]
+  */
+  fun unshift (item : a, array : Array(a)) : Array(a) {
+    `
+    (() => {
+      const result = Array.from(array)
+      result.unshift(item)
+      return result
+    })()
+    `
+  }
+
+  /*
+  Flattens an `Array(Maybe(a))` into an `Array(a)`, by unwrapping the items
+  and skipping nothings.
+
+    Array.compact([Maybe.just("A"), Maybe.nothing()]) == ["A"]
+  */
+  fun compact (array : Array(Maybe(a))) : Array(a) {
+    `
+    (() => {
+      const result = []
+
+      for (let item of array) {
+        if (item instanceof Just) {
+          result.push(item.value)
+        }
+      }
+
+      return result
+    })()
+    `
+  }
+
+  /*
+  Moves an item at the given index (`from`) to a new index (`to`).
+
+  The array is returned as is if:
+  * `from` and `to` are the same.
+  * a negative number is supplied to `from`
+  * a number is supplied to `from` which is grater the the length of the array
+
+    Array.move(-1, 1, ["A", "B", "C"]) == ["A", "B", "C"]
+    Array.move(10, 1, ["A", "B", "C"]) == ["A", "B", "C"]
+    Array.move(0, 0, ["A", "B", "C"]) == ["A", "B", "C"]
+
+  If a negative number is supplied to `to` then, the item is moved to the
+  first position.
+
+    Array.move(2, -1, ["A", "B", "C"]) == ["C", "A", "B"]
+
+  If a number is supplied to `to` which is grater the the length of the array,
+  then the item is moved to the last position.
+
+    Array.move(0, 10, ["A", "B", "C"]) == ["B", "C", "A"]
+  */
+  fun move (from : Number, to : Number, array : Array(a)) : Array(a) {
+    `
+    (() => {
+      const result = Array.from(array)
+
+      if (from == to || from < 0 || from >= result.length) {
+        return result
+      } else if (to < 0) {
+        /* If the desired position is lower then zero put at the front. */
+        result.unshift(result.splice(from, 1)[0])
+      } else if (to >= result.length) {
+        /* If the desired position is bigger then length put at the back. */
+        result.push(result.splice(from, 1)[0])
+      } else {
+        /* Else we just move. */
+        result.splice(to, 0, result.splice(from, 1)[0])
+      }
+
+      return result
+    })()
+    `
+  }
+
+  /*
+  Inserts the given item into the given position of the given array.
+
+    Array.insertAt("a", 0, ["b","c"]) == ["a","b","c"]
+  */
+  fun insertAt (item : a, position : Number, array : Array(a)) : Array(a) {
+    `
+    (() => {
+      const result = Array.from(array)
+
+      if (position <= 0) {
+        result.unshift(item)
+      } else {
+        result.splice(position, 0, item)
+      }
+
+      return result
+    })()
+    `
+  }
+
+  /*
+  Spaws the items at the given indexes of the given array. It returns the array
+  unchanged if there is no item at any of the given indexs.
+
+    Array.swap(0, 1, ["a","b"]) == ["b", "a"]
+  */
+  fun swap (index1 : Number, index2 : Number, array : Array(a)) : Array(a) {
+    `
+    (() => {
+      if (index1 < 0 ||
+          index2 < 0 ||
+          index1 >= array.length ||
+          index2 >= array.length) {
+        return array
+      }
+
+      const result = Array.from(array)
+      const saved = result[index1]
+      result[index1] = result[index2]
+      result[index2] = saved;
+      return result
+    })()
+    `
+  }
+
+  /* Deletes the item of an array with the given index. */
+  fun deleteAt (index : Number, array : Array(a)) : Array(a) {
+    `
+    (() => {
+      if (index < 0 || index >= array.length) { return array }
+      const result = Array.from(array)
+      result.splice(index, 1)
+      return result
+    })()
+    `
+  }
+
+  /*
+  Updates the item at the given index of the given array using the given
+  function.
+
+    Array.updateAt(
+      2, (number : Number) : Number => {
+        number + 2
+      }, [0,1,2]) == [0,1,4]
+  */
+  fun updateAt (
+    index : Number,
+    method : Function(a, a),
+    array : Array(a)
+  ) : Array(a) {
+    `
+    (() => {
+      if (array[index]) {
+        return #{setAt(index, method(`array[index]`), array)}
+      } else {
+        return array
+      }
+    })()
+    `
+  }
+
+  /*
+  Sets the item at the given index to the given item of the given array.
+
+    Array.setAt(2, 5, [1,2,3]) == [1,2,5]
+  */
+  fun setAt (index : Number, item : a, array : Array(a)) : Array(a) {
+    `
+    (() => {
+      if (index < 0 || index >= array.length) { return array }
+      const result = Array.from(array)
+      result[index] = item
+      return result
+    })()
+    `
+  }
+
+  /*
+  Returns the index of the given item in the given array.
+
+    Arrray.indexOf("a", ["a","b","c"]) == 1
+  */
+  fun indexOf (item : a, array : Array(a)) : Number {
+    `
+    (() => {
+      for (let index = 0; index < array.length; index++) {
+        if (_compare(item, array[index])) {
+          return index
+        }
+      }
+
+      return -1
     })()
     `
   }

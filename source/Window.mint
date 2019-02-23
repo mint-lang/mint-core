@@ -61,12 +61,12 @@ module Window {
 
   /* Sets the horizontal scroll position of the window in pixels. */
   fun setScrollTop (position : Number) : Promise(Never, Void) {
-    `window.scrollTo(this.scrollTop(), position)`
+    `window.scrollTo(#{scrollTop()}, position)`
   }
 
   /* Sets the vertical scroll position of the window in pixels. */
   fun setScrollLeft (position : Number) : Promise(Never, Void) {
-    `window.scrollTo(position, this.scrollLeft())`
+    `window.scrollTo(position, #{scrollLeft()})`
   }
 
   /*
